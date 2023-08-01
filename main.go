@@ -19,14 +19,17 @@ func main() {
 		Title:  "GoSearch",
 		Width:  900,
 		Height: 350,
+		Frameless: true,
 		DisableResize: true,
 		AlwaysOnTop: true,
+
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
 		Windows: &windows.Options{
 			WebviewIsTransparent: true,
 			WindowIsTranslucent: true,
+			DisableFramelessWindowDecorations: true,
 		},
 		OnStartup: app.startup,
 		Bind: []interface{}{
