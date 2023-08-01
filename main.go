@@ -13,7 +13,7 @@ import (
 var assets embed.FS
 
 func main() {
-	app := NewApp()
+	GoSearchApp := GoSearch()
 
 	err := wails.Run(&options.App{
 		Title:  "GoSearch",
@@ -31,9 +31,9 @@ func main() {
 			WindowIsTranslucent: true,
 			DisableFramelessWindowDecorations: true,
 		},
-		OnStartup: app.startup,
+		OnStartup: GoSearchApp.startup,
 		Bind: []interface{}{
-			app,
+			GoSearchApp,
 		},
 	})
 
