@@ -21,7 +21,7 @@ func main() {
 		Height: 350,
 		Frameless: true,
 		DisableResize: true,
-		AlwaysOnTop: true,
+		AlwaysOnTop: false,
 
 		AssetServer: &assetserver.Options{
 			Assets: assets,
