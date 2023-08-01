@@ -15,8 +15,8 @@ func main() {
 
 	err := wails.Run(&options.App{
 		Title:  "GoSearch",
-		Width:  1024,
-		Height: 768,
+		Width:  900,
+		Height: 250,
 		AssetServer: &assetserver.Options{
 			Assets: assets,
 		},
