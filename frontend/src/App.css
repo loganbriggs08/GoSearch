@@ -1,0 +1,22 @@
+#App {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#input {
+    width: 100%;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.search-input {
+    width: 98%;
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 24px;
+}
