@@ -17,7 +17,7 @@ func main() {
 
 	err := wails.Run(&options.App{
 		Title:  "GoSearch",
-		Width:  900,
+		Width:  650,
 		Height: 350,
 		Frameless: true,
 		DisableResize: true,
