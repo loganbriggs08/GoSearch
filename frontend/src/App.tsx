@@ -14,7 +14,11 @@ function App() {
     return (
         <div id="App">
             <div id="input" className="search-box">
-                <input id="name" className="search-input" onChange={updateName} name="input" type="text"/>
+                <input id="name" className="search-input" onChange={updateName} name="input"  type="text"/>
+            </div>
+
+            <div id="results" className="results-div">
+                <h1>No Results found</h1>
             </div>
         </div>
     )
