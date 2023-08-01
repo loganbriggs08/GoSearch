@@ -15,6 +15,7 @@ func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 }
 
+
 func (a *App) Search(name string) {
-	fmt.Printf("Search Result: %s", name)
+	fmt.Printf("Search Result: %s\n", name)
 }
