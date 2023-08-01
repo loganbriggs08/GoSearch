@@ -1,4 +1,4 @@
-module changeme
+module github.com/NotKatsu/GoSearch
 
 go 1.18
 
