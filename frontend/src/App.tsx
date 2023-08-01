@@ -13,8 +13,8 @@ function App() {
 
     return (
         <div id="App">
-            <div id="input" className="input-box">
-                <input id="name" className="input" onChange={updateName} name="input" type="text"/>
+            <div id="input" className="search-box">
+                <input id="name" className="search-input" onChange={updateName} name="input" type="text"/>
                 <button className="btn" onClick={greet}>Greet</button>
             </div>
         </div>
