@@ -1,23 +1,24 @@
-import {useState} from 'react';
-import logo from './assets/images/logo-universal.png';
 import './App.css';
 import {Search} from "../wailsjs/go/main/App";
 
 function App() {
-    const [name, setName] = useState('');
-    const updateName = (e: any) => setName(e.target.value);
 
-    function greet() {
-        Search(name);
+    function printUpdate(name: any) {
+        Search(name)
     }
+    const updateName = (e: any) => printUpdate(e.target.value);
 
     return (
         <div id="App">
             <div id="input" className="search-box">
-                <input id="name" className="search-input" onChange={updateName} name="input" type="text" spellCheck="false"/>
+                <input id="name" className="search-input" onChange={updateName} name="input" type="text" spellCheck="false" placeholder="Search..." />
             </div>
 
             <div id="results" className="results-div">
+
+            </div>
+
+            <div id="footer" className="footer-div">
                 <h1>No Results found</h1>
             </div>
         </div>
