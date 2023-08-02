@@ -4,7 +4,6 @@ import (
 	"embed"
 
 	"github.com/pterm/pterm"
-	"github.com/NotKatsu/GoSearch/database"
 
 	"github.com/wailsapp/wails/v2/pkg/options/windows"
 
