@@ -2,17 +2,13 @@ package database
 
 import (
 	"database/sql"
+
+	"github.com/NotKatsu/GoSearch/modules"
 	"github.com/NotKatsu/GoSearch/modules/os"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/pterm/pterm"
 )
-
-type RecommendedAppStruct struct {
-	Name string
-	Location string
-	Visits uint16
-}
 
 var database *sql.DB
 
@@ -45,8 +41,8 @@ func SetupDatabase() bool {
 	}
 }
 
-func GetRecommendedApps() ([]RecommendedAppStruct, error) {
-	var RecommendedAppStructArray []RecommendedAppStruct
+func GetRecommendedApps() ([]modules.RecommendedAppStruct, error) {
+	var RecommendedAppStructArray []modules.RecommendedAppStruct
 	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits FROM recommended_apps ORDER BY app_visits DESC LIMIT 3")
 
 	if recommendedAppsDatabaseQueryError != nil {
@@ -56,7 +52,7 @@ func GetRecommendedApps() ([]RecommendedAppStruct, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var currentRecommendedApp RecommendedAppStruct
+		var currentRecommendedApp modules.RecommendedAppStruct
 
 		rowsScanError := rows.Scan(&currentRecommendedApp.Name, &currentRecommendedApp.Location, &currentRecommendedApp.Visits)
 
