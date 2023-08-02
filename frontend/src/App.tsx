@@ -4,9 +4,10 @@ import {Search} from "../wailsjs/go/main/App";
 function App() {
     let apps = ["Google Chrome", "Brave Browser", "FireFox"];
 
-    function printSearch(name: any) {
-        Search(name)
+    function printSearch(query: any) {
+        Search(query)
     }
+
     const UpdateSearch = (e: any) => printSearch(e.target.value);
 
     return (

@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NotKatsu/GoSearch/keystroke"
+	"github.com/NotKatsu/GoSearch/modules/keystroke"
 )
 
 type App struct {
@@ -22,5 +22,7 @@ func (a *App) startup(ctx context.Context) {
 }
 
 func (a *App) Search(query string) {
-	fmt.Println(query)
+	if query == "" {
+
+	}
 }
