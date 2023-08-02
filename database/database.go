@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"github.com/NotKatsu/GoSearch/modules/os"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/pterm/pterm"
@@ -11,7 +12,17 @@ var database *sql.DB
 
 func SetupDatabase() bool {
 	var err error
-	database, err = sql.Open("sqlite3", "database.db")
+
+	location, createAppDataFolderError := os.CreateAppDataFolder()
+
+	if createAppDataFolderError != nil {
+		pterm.Fatal.WithFatal(true).Println(err)
+		return false
+	}
+
+	databaseLocation := location + "/database.db"
+
+	database, err = sql.Open("sqlite3", databaseLocation)
 
 	if err != nil {
 		pterm.Fatal.WithFatal(true).Println(err)
