@@ -8,6 +8,12 @@ import (
 	"github.com/pterm/pterm"
 )
 
+type RecommendedAppStruct struct {
+	Name string
+	Location string
+	Visits uint16
+}
+
 var database *sql.DB
 
 func SetupDatabase() bool {
@@ -20,7 +26,7 @@ func SetupDatabase() bool {
 		return false
 	}
 
-	databaseLocation := location + "/database.db"
+	databaseLocation := location + "/cache.db"
 
 	database, err = sql.Open("sqlite3", databaseLocation)
 
@@ -37,4 +43,8 @@ func SetupDatabase() bool {
 	} else {
 		return true
 	}
+}
+
+func GetRecommendedApps() {
+
 }
