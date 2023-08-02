@@ -26,6 +26,47 @@
     background-color: #1D212F;
 }
 
+#results {
+    background-color: #1D212F;
+}
+
+#resultcard {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 8px;
+    display: flex;
+}
+
+#resultcard button {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #1a1e2b;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+#resultcard button:active {
+    background-color: #1F2433;
+}
+
+#resultcard img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+#resultcard h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    color: #fff;
+}
+
 #footer {
     opacity: 1;
     width: 100%;
