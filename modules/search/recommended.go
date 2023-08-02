@@ -20,7 +20,6 @@ func GetRecommended() []RecommendedAppStruct{
 		pterm.Fatal.WithFatal(true).Println(recommendedAppsError)
 	}
 
-
 	return recommendedApps
 
 }
