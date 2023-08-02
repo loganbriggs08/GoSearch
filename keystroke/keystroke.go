@@ -1,4 +1,4 @@
-package modules
+package keystroke
 
 import (
 	"context"
@@ -10,7 +10,7 @@ import (
 
 var currentWindowStateOpen bool
 
-func KeystrokeListener(ctx context.Context) {
+func Listener(ctx context.Context) {
 	err := termbox.Init()
 
 	if err != nil {

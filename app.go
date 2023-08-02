@@ -3,12 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/NotKatsu/GoSearch/modules"
+
+	"github.com/NotKatsu/GoSearch/keystroke"
 )
 
 type App struct {
 	ctx context.Context
 }
+
 func GoSearch() *App {
 	return &App{}
 }
@@ -16,10 +18,9 @@ func GoSearch() *App {
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
-	go modules.KeystrokeListener(a.ctx)
+	go keystroke.Listener(a.ctx)
 }
 
-
-func (a *App) Search(name string) {
-	fmt.Printf("Search Result: %s\n", name)
+func (a *App) Search(query string) {
+	fmt.Println(query)
 }
