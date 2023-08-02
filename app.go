@@ -2,6 +2,8 @@ package main
 
 import (
 	"context"
+	"github.com/NotKatsu/GoSearch/database"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 
 	"github.com/NotKatsu/GoSearch/modules/keystroke"
 )
@@ -17,7 +19,11 @@ func GoSearch() *App {
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
-	go keystroke.Listener(a.ctx)
+	if database.SetupDatabase() == true {
+		go keystroke.Listener(a.ctx)
+	} else {
+		runtime.Quit(a.ctx)
+	}
 }
 
 func (a *App) Search(query string) {
