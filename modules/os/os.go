@@ -18,7 +18,7 @@ func GetAppDataFolder() (string, error) {
 	return appDataPath, nil
 }
 
-func createAppDataFolder() (string, error) {
+func CreateAppDataFolder() (string, error) {
 	appDataPath, err := GetAppDataFolder()
 	
 	if err != nil {
