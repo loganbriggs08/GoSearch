@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { Search, HandleButtonClickEvent } from "../wailsjs/go/main/App";
+import { Search, HandleButtonClickEvent, ToggleFavorite } from "../wailsjs/go/main/App";
 import { AiFillHeart } from "react-icons/ai";
 
 export interface FileReturnStruct {
@@ -35,6 +35,11 @@ function App() {
             }, 1000);
     }
 
+    const handleToggleFavorite = (application: FileReturnStruct) => {
+        event.stopPropagation();
+        ToggleFavorite(application.Name, application.Location, application.Favorite);
+    }
+
     const handleButtonClick = (result: FileReturnStruct) => {
         HandleButtonClickEvent(result);
         setResults([]);
@@ -53,12 +58,19 @@ function App() {
                             <img src="https://cdn.discordapp.com/attachments/759689232326328323/1136057337015185559/Google_Chrome_icon_February_2022.svg.png" alt="result icon" />
                             <h1>{result.Name}</h1>
 
-                            <button className="heart-button">
-                                <span className="icon-container">
-                                    <AiFillHeart />
-                                </span>
-                            </button>
-
+                            {result.Favorite ? (
+                                <button className="heart-button" onClick={() => handleToggleFavorite(result)}>
+                                    <span className="icon-container-fav">
+                                        <AiFillHeart />
+                                    </span>
+                                </button>
+                                ) : (
+                                    <button className="heart-button" onClick={() => handleToggleFavorite(result)}>
+                                        <span className="icon-container-non-fav">
+                                            <AiFillHeart />
+                                        </span>
+                                    </button>
+                                    )}
                         </button>
                     </div>
                 ))}

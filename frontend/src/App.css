@@ -45,14 +45,24 @@
     cursor: pointer;
 }
 
-.icon-container {
+.icon-container-fav {
+    font-size: 24px;
+    color: #ff6b6b;
+    transition: color 0.2s;
+}
+
+.icon-container-non-fav {
     font-size: 24px;
     color: #1D212F;
     transition: color 0.2s;
 }
 
-.heart-button:hover .icon-container {
+.heart-button:hover .icon-container-non-fav {
     color: #ff6b6b;
+}
+
+.heart-button:hover .icon-container-fav {
+    color: #1D212F;
 }
 
 #results {
