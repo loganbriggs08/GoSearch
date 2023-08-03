@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
 import { Search, HandleButtonClickEvent } from "../wailsjs/go/main/App";
+import { AiFillHeart } from "react-icons/ai";
 
 export interface FileReturnStruct {
     Name:         string;
@@ -52,7 +53,12 @@ function App() {
                             <img src="https://cdn.discordapp.com/attachments/759689232326328323/1136057337015185559/Google_Chrome_icon_February_2022.svg.png" alt="result icon" />
                             <h1>{result.Name}</h1>
 
-                            <button>Click Me</button>
+                            <button className="heart-button">
+                                <span className="icon-container">
+                                    <AiFillHeart />
+                                </span>
+                            </button>
+
                         </button>
                     </div>
                 ))}
