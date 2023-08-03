@@ -1,8 +1,8 @@
 package main
 
 import (
-	"fmt"
 	"context"
+	"fmt"
 
 	"github.com/NotKatsu/GoSearch/modules/dialog"
 	"github.com/NotKatsu/GoSearch/modules/os"
@@ -53,6 +53,10 @@ func (a *App) HandleButtonClickEvent(application any) {
 	}
 }
 
+func (a *App) ToggleFavorite(name string, location string, favorite bool) {
+	fmt.Println(name, location, favorite)
+}
+
 func (a *App) Search(query string) []modules.FileReturnStruct {
 	var arrayWithEmptyStruct []modules.FileReturnStruct
 	emptyStruct := modules.FileReturnStruct{}
@@ -63,7 +67,7 @@ func (a *App) Search(query string) []modules.FileReturnStruct {
 		return search.GetRecommended()
 	} else if query != "" {
 		fmt.Println(query)
-//		return search.Files(strings.ToLower(query))
+		//		return search.Files(strings.ToLower(query))
 	}
 
 	return arrayWithEmptyStruct
