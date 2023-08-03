@@ -4,4 +4,4 @@ import {modules} from '../models';
 
 export function HandleButtonClickEvent(arg1:any):Promise<void>;
 
-export function Search(arg1:string):Promise<Array<modules.RecommendedAppStruct>>;
+export function Search(arg1:string):Promise<Array<modules.FileReturnStruct>>;
