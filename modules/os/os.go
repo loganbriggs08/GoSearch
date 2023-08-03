@@ -2,8 +2,11 @@ package os
 
 import (
 	"os"
+	"os/exec"
 	"os/user"
 	"path/filepath"
+
+	"github.com/pterm/pterm"
 )
 
 func GetAppDataFolder() (string, error) {
@@ -38,3 +41,21 @@ func CreateAppDataFolder() (string, error) {
 	return appDataFolderPath, nil
 }
 
+func OpenExecutable(executablePath string) bool {
+	application := exec.Command(executablePath)
+	applicationOpenError := application.Start()
+
+	if applicationOpenError != nil {
+		pterm.Fatal.WithFatal(true).Println(applicationOpenError)
+		return false
+	}
+
+	applicationOpenError = application.Wait()
+
+	if applicationOpenError != nil {
+		pterm.Fatal.WithFatal(true).Println(applicationOpenError)
+		return false
+	}
+
+	return true
+}
