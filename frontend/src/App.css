@@ -35,6 +35,26 @@
     background-color: var(--primary-color);
 }
 
+.heart-button {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.icon-container {
+    font-size: 24px;
+    color: #1D212F;
+    transition: color 0.2s;
+}
+
+.heart-button:hover .icon-container {
+    color: #ff6b6b;
+}
+
 #results {
     overflow-y: auto;
     max-height: 205px;
@@ -51,7 +71,7 @@
     flex-grow: 1;
     display: flex;
     align-items: center;
-    padding: 15px;
+    padding: 8px;
     border-radius: 10px;
     background-color: var(--secondary-color);
     border: none;
@@ -64,6 +84,7 @@
 }
 
 #resultcard img {
+    margin-left: 10px;
     width: 30px;
     height: 30px;
     margin-right: 10px;
@@ -77,6 +98,7 @@
 }
 
 #footer {
+    padding-bottom: 10px;
     opacity: 1;
     width: 100%;
     background-color: #1D212F;
@@ -84,7 +106,6 @@
 }
 
 #footer h1 {
-    margin-left: 10px;
     font-size: 16px;
     font-weight: 400;
     text-align: center;
