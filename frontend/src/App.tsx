@@ -21,6 +21,8 @@ function App() {
         });
     }
 
+    function
+
     const UpdateSearch = (e: any) => fetchSearchResultsSearch(e.target.value);
 
     useEffect(() => {
@@ -46,8 +48,9 @@ function App() {
 
             <div id="footer" className="footer-div">
                 {results.length === 0 && <h1>No Results found</h1>}
-                {results.length <= 3 && results.length != 0 && <h1>{results.length} Results found.</h1>}
-                {results.length >= 4 && <h1>{results.length} Results found - Scroll to see all results.</h1>}
+                {results.length === 1 && <h1>{results.length} Result found</h1>}
+                {results.length <= 3 && results.length != 0 && results.length != 1 && <h1>{results.length} Results found</h1>}
+                {results.length >= 4 && <h1>{results.length} Results found - Scroll to see all results</h1>}
             </div>
         </div>
     );
