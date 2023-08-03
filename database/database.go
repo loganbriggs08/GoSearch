@@ -43,7 +43,7 @@ func SetupDatabase() bool {
 
 func GetRecommendedApps() ([]modules.FileReturnStruct, error) {
 	var RecommendedAppStructArray []modules.FileReturnStruct
-	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits FROM recommended_apps ORDER BY CASE WHEN app_favorited = 1 THEN 0 ELSE 1 END, app_visits DESC LIMIT 15")
+	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits, app_favorited FROM recommended_apps ORDER BY CASE WHEN app_favorited = 1 THEN 0 ELSE 1 END, app_visits DESC LIMIT 15")
 
 	if recommendedAppsDatabaseQueryError != nil {
 		pterm.Fatal.WithFatal(true).Println(recommendedAppsDatabaseQueryError)
@@ -54,7 +54,7 @@ func GetRecommendedApps() ([]modules.FileReturnStruct, error) {
 	for rows.Next() {
 		var currentRecommendedApp modules.FileReturnStruct
 
-		rowsScanError := rows.Scan(&currentRecommendedApp.Name, &currentRecommendedApp.Location, &currentRecommendedApp.Visits)
+		rowsScanError := rows.Scan(&currentRecommendedApp.Name, &currentRecommendedApp.Location, &currentRecommendedApp.Visits, &currentRecommendedApp.Favorite)
 
 		if rowsScanError != nil {
 			pterm.Fatal.WithFatal(true).Println(rowsScanError)
