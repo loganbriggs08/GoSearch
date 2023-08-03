@@ -27,7 +27,7 @@ function App() {
         UpdateSearch({ target: { value: "" } });
         }, [])
 
-    const handleButtonClick = (result: object) => {
+    const handleButtonClick = (result: any) => {
         HandleButtonClickEvent(result)
 
         useEffect(() => {

@@ -3,7 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
+
 	"github.com/NotKatsu/GoSearch/modules"
+	"github.com/pterm/pterm"
 
 	"github.com/NotKatsu/GoSearch/database"
 	"github.com/NotKatsu/GoSearch/modules/search"
@@ -20,6 +22,7 @@ func GoSearch() *App {
 	return &App{}
 }
 
+
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
@@ -30,8 +33,22 @@ func (a *App) startup(ctx context.Context) {
 	}
 }
 
-func (a *App) HandleButtonClickEvent(result any) {
-	fmt.Println(result)
+func (a *App) HandleButtonClickEvent(application any) {
+	runtime.Hide(a.ctx)
+
+	applicationMap, successfulAssertion  := application.(map[string]interface{})
+
+	if successfulAssertion == true {
+		name := applicationMap["Name"].(string)
+		location := applicationMap["Location"].(string)
+		visits := applicationMap["Visits"].(float64)
+
+		fmt.Println("Name:", name)
+		fmt.Println("Location:", location)
+		fmt.Println("Visits:", visits)
+	} else {
+		pterm.Fatal.WithFatal(true).Println("Something went wrong while trying to complete a Assertion.")
+	}
 }
 
 func (a *App) Search(query string) []modules.RecommendedAppStruct{
