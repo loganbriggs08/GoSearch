@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"github.com/NotKatsu/GoSearch/modules"
 
 	"github.com/NotKatsu/GoSearch/database"
@@ -27,6 +28,10 @@ func (a *App) startup(ctx context.Context) {
 	} else {
 		runtime.Quit(a.ctx)
 	}
+}
+
+func (a *App) HandleButtonClickEvent(result any) {
+	fmt.Println(result)
 }
 
 func (a *App) Search(query string) []modules.RecommendedAppStruct{
