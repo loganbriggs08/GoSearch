@@ -1,11 +1,20 @@
 import './App.css';
-import {Search} from "../wailsjs/go/main/App";
+import React, { useState } from "react";
+import { Search } from "../wailsjs/go/main/App";
+
+export interface RecommendedAppStruct {
+    Name: string;
+    Location: string;
+    Visits: number;
+}
 
 function App() {
-    let apps = ["Google Chrome", "Brave Browser", "FireFox"];
+    const [results, setResults] = useState<RecommendedAppStruct[]>([]);
 
     function printSearch(query: any) {
-        Search(query)
+        Search(query).then((response: RecommendedAppStruct[]) => {
+            setResults(response);
+        });
     }
 
     const UpdateSearch = (e: any) => printSearch(e.target.value);
@@ -17,21 +26,21 @@ function App() {
             </div>
 
             <div id="results" className="results-div">
-                {apps.map((item, index) => (
-                    <div id="resultcard" className="result-card">
+                {results.map((result) => (
+                    <div key={result.Name} id="resultcard" className="result-card">
                         <button>
-                            <img src="https://cdn.discordapp.com/attachments/759689232326328323/1136057337015185559/Google_Chrome_icon_February_2022.svg.png" alt="result icon"/>
-                            <h1>{item}</h1>
+                            <img src="https://cdn.discordapp.com/attachments/759689232326328323/1136057337015185559/Google_Chrome_icon_February_2022.svg.png" alt="result icon" />
+                            <h1>{result.Name}</h1>
                         </button>
                     </div>
-                    ))}
+                ))}
             </div>
 
             <div id="footer" className="footer-div">
                 <h1>No Results found</h1>
             </div>
         </div>
-    )
+    );
 }
 
-export default App
+export default App;
