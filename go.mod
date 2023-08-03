@@ -7,6 +7,7 @@ require (
 	github.com/nsf/termbox-go v1.1.1
 	github.com/pterm/pterm v0.12.49
 	github.com/wailsapp/wails/v2 v2.5.1
+	tawesoft.co.uk/go v0.13.0
 )
 
 require (
@@ -42,7 +43,6 @@ require (
 	golang.org/x/sys v0.10.0 // indirect
 	golang.org/x/term v0.5.0 // indirect
 	golang.org/x/text v0.11.0 // indirect
-	tawesoft.co.uk/go v0.13.0 // indirect
 )
 
 // replace github.com/wailsapp/wails/v2 v2.5.1 => C:\Users\logan\go\pkg\mod
