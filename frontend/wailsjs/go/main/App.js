@@ -9,3 +9,7 @@ export function HandleButtonClickEvent(arg1) {
 export function Search(arg1) {
   return window['go']['main']['App']['Search'](arg1);
 }
+
+export function ToggleFavorite(arg1, arg2, arg3) {
+  return window['go']['main']['App']['ToggleFavorite'](arg1, arg2, arg3);
+}
