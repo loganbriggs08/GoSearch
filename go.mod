@@ -3,7 +3,6 @@ module github.com/NotKatsu/GoSearch
 go 1.18
 
 require (
-	github.com/lxn/walk v0.0.0-20210112085537-c389da54e794
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/nsf/termbox-go v1.1.1
 	github.com/pterm/pterm v0.12.49
@@ -26,7 +25,6 @@ require (
 	github.com/leaanthony/gosod v1.0.3 // indirect
 	github.com/leaanthony/slicer v1.5.0 // indirect
 	github.com/lithammer/fuzzysearch v1.1.5 // indirect
-	github.com/lxn/win v0.0.0-20210218163916-a377121e959e // indirect
 	github.com/mattn/go-colorable v0.1.11 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	github.com/mattn/go-runewidth v0.0.13 // indirect
@@ -45,7 +43,6 @@ require (
 	golang.org/x/sys v0.10.0 // indirect
 	golang.org/x/term v0.5.0 // indirect
 	golang.org/x/text v0.11.0 // indirect
-	gopkg.in/Knetic/govaluate.v3 v3.0.0 // indirect
 )
 
 // replace github.com/wailsapp/wails/v2 v2.5.1 => C:\Users\logan\go\pkg\mod
