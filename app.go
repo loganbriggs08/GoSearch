@@ -1,8 +1,8 @@
 package main
 
 import (
+	"fmt"
 	"context"
-	"strings"
 
 	"github.com/NotKatsu/GoSearch/modules/dialog"
 	"github.com/NotKatsu/GoSearch/modules/os"
@@ -62,7 +62,8 @@ func (a *App) Search(query string) []modules.FileReturnStruct {
 	if query == "" {
 		return search.GetRecommended()
 	} else if query != "" {
-		return search.Files(strings.ToLower(query))
+		fmt.Println(query)
+//		return search.Files(strings.ToLower(query))
 	}
 
 	return arrayWithEmptyStruct
