@@ -43,7 +43,7 @@ func SetupDatabase() bool {
 
 func GetRecommendedApps() ([]modules.RecommendedAppStruct, error) {
 	var RecommendedAppStructArray []modules.RecommendedAppStruct
-	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits FROM recommended_apps ORDER BY app_visits DESC LIMIT 5")
+	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits FROM recommended_apps ORDER BY app_visits DESC LIMIT 15")
 
 	if recommendedAppsDatabaseQueryError != nil {
 		pterm.Fatal.WithFatal(true).Println(recommendedAppsDatabaseQueryError)
