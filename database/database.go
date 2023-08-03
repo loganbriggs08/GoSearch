@@ -41,8 +41,8 @@ func SetupDatabase() bool {
 	}
 }
 
-func GetRecommendedApps() ([]modules.RecommendedAppStruct, error) {
-	var RecommendedAppStructArray []modules.RecommendedAppStruct
+func GetRecommendedApps() ([]modules.FileReturnStruct, error) {
+	var RecommendedAppStructArray []modules.FileReturnStruct
 	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits FROM recommended_apps ORDER BY app_visits DESC LIMIT 15")
 
 	if recommendedAppsDatabaseQueryError != nil {
@@ -52,7 +52,7 @@ func GetRecommendedApps() ([]modules.RecommendedAppStruct, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var currentRecommendedApp modules.RecommendedAppStruct
+		var currentRecommendedApp modules.FileReturnStruct
 
 		rowsScanError := rows.Scan(&currentRecommendedApp.Name, &currentRecommendedApp.Location, &currentRecommendedApp.Visits)
 

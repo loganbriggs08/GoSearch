@@ -6,7 +6,7 @@ import (
 	"github.com/pterm/pterm"
 )
 
-func GetRecommended() []modules.RecommendedAppStruct {
+func GetRecommended() []modules.FileReturnStruct {
 	recommendedApps, recommendedAppsError := database.GetRecommendedApps()
 
 	if recommendedAppsError != nil {

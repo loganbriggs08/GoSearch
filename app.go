@@ -2,7 +2,10 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"strings"
+
+	"github.com/NotKatsu/GoSearch/modules/dialog"
+	"github.com/NotKatsu/GoSearch/modules/os"
 
 	"github.com/NotKatsu/GoSearch/modules"
 	"github.com/pterm/pterm"
@@ -22,7 +25,6 @@ func GoSearch() *App {
 	return &App{}
 }
 
-
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
@@ -34,33 +36,34 @@ func (a *App) startup(ctx context.Context) {
 }
 
 func (a *App) HandleButtonClickEvent(application any) {
-	runtime.Hide(a.ctx)
-
-	applicationMap, successfulAssertion  := application.(map[string]interface{})
+	applicationMap, successfulAssertion := application.(map[string]interface{})
 
 	if successfulAssertion == true {
-		name := applicationMap["Name"].(string)
-		location := applicationMap["Location"].(string)
-		visits := applicationMap["Visits"].(float64)
+		applicationName := applicationMap["Name"].(string)
+		applicationLocation := applicationMap["Location"].(string)
 
-		fmt.Println("Name:", name)
-		fmt.Println("Location:", location)
-		fmt.Println("Visits:", visits)
+		if os.OpenExecutable(applicationLocation) == false {
+			errorMessage := "Failed to open " + applicationName
+			dialog.ErrorDialog(errorMessage)
+		} else {
+			runtime.Hide(a.ctx)
+		}
+
 	} else {
 		pterm.Fatal.WithFatal(true).Println("Something went wrong while trying to complete a Assertion.")
 	}
 }
 
-func (a *App) Search(query string) []modules.RecommendedAppStruct{
-	var	arrayWithEmptyStruct []modules.RecommendedAppStruct
-	emptyStruct := modules.RecommendedAppStruct{}
+func (a *App) Search(query string) []modules.FileReturnStruct {
+	var arrayWithEmptyStruct []modules.FileReturnStruct
+	emptyStruct := modules.FileReturnStruct{}
 
 	arrayWithEmptyStruct = append(arrayWithEmptyStruct, emptyStruct)
 
 	if query == "" {
 		return search.GetRecommended()
 	} else if query != "" {
-		return arrayWithEmptyStruct
+		return search.GetApplications(strings.ToLower(query))
 	}
 
 	return arrayWithEmptyStruct
