@@ -31,7 +31,7 @@ func SetupDatabase() bool {
 		return false
 	}
 
-	_, databaseTableCreationError := database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_visits BIGINT)")
+	_, databaseTableCreationError := database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_icon_location VARCHAR(255), app_favorited BOOLEAN, app_visits BIGINT)")
 
 	if databaseTableCreationError != nil {
 		pterm.Fatal.WithFatal(true).Println(err)
