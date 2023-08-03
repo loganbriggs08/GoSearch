@@ -4,6 +4,6 @@ type FileReturnStruct struct {
 	Name         string
 	Location     string
 	IconLocation string
-	Favorite     bool
+	Favorite     uint8
 	Visits       uint16
 }
