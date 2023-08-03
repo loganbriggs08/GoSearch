@@ -35,19 +35,16 @@ func (a *App) HandleButtonClickEvent(result any) {
 }
 
 func (a *App) Search(query string) []modules.RecommendedAppStruct{
+	var	arrayWithEmptyStruct []modules.RecommendedAppStruct
+	emptyStruct := modules.RecommendedAppStruct{}
+
+	arrayWithEmptyStruct = append(arrayWithEmptyStruct, emptyStruct)
+
 	if query == "" {
 		return search.GetRecommended()
 	} else if query != "" {
-		var	arrayOfAppStruct []modules.RecommendedAppStruct
-		emptyStruct := modules.RecommendedAppStruct{}
-
-		arrayOfAppStruct = append(arrayOfAppStruct, emptyStruct)
+		return arrayWithEmptyStruct
 	}
 
-	var	arrayOfAppStruct []modules.RecommendedAppStruct
-	emptyStruct := modules.RecommendedAppStruct{}
-
-	arrayOfAppStruct = append(arrayOfAppStruct, emptyStruct)
-
-	return arrayOfAppStruct
+	return arrayWithEmptyStruct
 }
