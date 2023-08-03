@@ -51,6 +51,8 @@ function App() {
                         <button onClick={() => handleButtonClick(result)}>
                             <img src="https://cdn.discordapp.com/attachments/759689232326328323/1136057337015185559/Google_Chrome_icon_February_2022.svg.png" alt="result icon" />
                             <h1>{result.Name}</h1>
+
+                            <button>Click Me</button>
                         </button>
                     </div>
                 ))}
