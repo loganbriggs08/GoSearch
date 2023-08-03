@@ -1,6 +1,6 @@
 import './App.css';
 import React, { useState, useEffect } from "react";
-import { Search } from "../wailsjs/go/main/App";
+import { Search, HandleButtonClickEvent } from "../wailsjs/go/main/App";
 
 export interface RecommendedAppStruct {
     Name: string;
@@ -21,13 +21,20 @@ function App() {
         });
     }
 
-    function
-
     const UpdateSearch = (e: any) => fetchSearchResultsSearch(e.target.value);
 
     useEffect(() => {
         UpdateSearch({ target: { value: "" } });
         }, [])
+
+    const handleButtonClick = (result: object) => {
+        HandleButtonClickEvent(result)
+
+        useEffect(() => {
+            UpdateSearch({ target: { value: "" } });
+            }, [])
+
+    }
 
     return (
         <div id="App">
@@ -38,7 +45,7 @@ function App() {
             <div id="results" className="results-div">
                 {results.map((result) => (
                     <div key={result.Name} id="resultcard" className="result-card">
-                        <button>
+                        <button onClick={() => handleButtonClick(result)}>
                             <img src="https://cdn.discordapp.com/attachments/759689232326328323/1136057337015185559/Google_Chrome_icon_February_2022.svg.png" alt="result icon" />
                             <h1>{result.Name}</h1>
                         </button>
