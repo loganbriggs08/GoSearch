@@ -36,6 +36,7 @@ func (a *App) startup(ctx context.Context) {
 }
 
 func (a *App) HandleButtonClickEvent(application any) {
+	runtime.Hide(a.ctx)
 	applicationMap, successfulAssertion := application.(map[string]interface{})
 
 	if successfulAssertion == true {
@@ -45,8 +46,6 @@ func (a *App) HandleButtonClickEvent(application any) {
 		if os.OpenExecutable(applicationLocation) == false {
 			errorMessage := "Failed to open " + applicationName
 			dialog.ErrorDialog(errorMessage)
-		} else {
-			runtime.Hide(a.ctx)
 		}
 
 	} else {
