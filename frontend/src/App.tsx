@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Search } from "../wailsjs/go/main/App";
 
 export interface RecommendedAppStruct {
@@ -11,13 +11,21 @@ export interface RecommendedAppStruct {
 function App() {
     const [results, setResults] = useState<RecommendedAppStruct[]>([]);
 
-    function printSearch(query: any) {
+    function fetchSearchResultsSearch(query: any) {
         Search(query).then((response: RecommendedAppStruct[]) => {
-            setResults(response);
+            if (response.length === 1 && response[0].Name === "") {
+                setResults([]);
+            } else {
+                setResults(response)
+            }
         });
     }
 
-    const UpdateSearch = (e: any) => printSearch(e.target.value);
+    const UpdateSearch = (e: any) => fetchSearchResultsSearch(e.target.value);
+
+    useEffect(() => {
+        UpdateSearch({ target: { value: "" } });
+        }, [])
 
     return (
         <div id="App">
@@ -37,7 +45,8 @@ function App() {
             </div>
 
             <div id="footer" className="footer-div">
-                <h1>No Results found</h1>
+                {results.length === 0 && <h1>No Results found</h1>}
+                {results.length > 0 && <h1>{results.length} Results found</h1>}
             </div>
         </div>
     );
