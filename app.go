@@ -62,7 +62,7 @@ func (a *App) Search(query string) []modules.FileReturnStruct {
 	if query == "" {
 		return search.GetRecommended()
 	} else if query != "" {
-		return search.GetApplications(strings.ToLower(query))
+		return search.Files(strings.ToLower(query))
 	}
 
 	return arrayWithEmptyStruct
