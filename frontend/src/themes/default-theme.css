@@ -1,0 +1,130 @@
+:root {
+    --primary-color: #1D212F;
+    --secondary-color: #1a1e2b;
+    --highlight-color: #1F2433;
+    --accent-color: #151721;
+
+    --search-text-color: #FFFFFF;
+    --result-text-color: #FFFFFF;
+    --heart-active-color: #ff6b6b;
+}
+
+#App {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--accent-color);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+#input {
+    opacity: 0.7;
+    padding: 10px;
+    border-radius: 7px 7px 0 0;
+    background-color: var(--primary-color);
+    box-shadow: 0 1px 1px var(--accent-color);
+}
+
+.search-input {
+    flex: 1;
+    width: 98%;
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 24px;
+    margin: 0.25rem 0;
+    color: var(--search-text-color);
+    background-color: var(--primary-color);
+}
+
+.icon-container-fav {
+    font-size: 24px;
+    color: var(--heart-active-color);
+    transition: color 0.2s;
+}
+
+.icon-container-non-fav {
+    font-size: 24px;
+    color: var(--primary-color);
+    transition: color 0.2s;
+}
+
+.heart-button:hover .icon-container-non-fav {
+    color: var(--heart-active-color);
+}
+
+.heart-button:hover .icon-container-fav {
+    color: var(--primary-color);
+}
+
+#results {
+    overflow-y: auto;
+    max-height: 205px;
+    background-color: var(--primary-color);
+}
+
+#resultcard {
+    margin: 8px 20px;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border-radius: 10px;
+    background-color: var(--secondary-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+#resultcard .main-button {
+    flex: 7;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: var(--secondary-color);
+    border: none;
+    cursor: pointer;
+}
+
+#resultcard .heart-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#resultcard img {
+    margin-left: 10px;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+#resultcard h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--result-text-color);
+}
+
+#footer {
+    padding-bottom: 10px;
+    opacity: 1;
+    width: 100%;
+    background-color: var(--primary-color);
+    border-radius: 0 0 5px 5px;
+}
+
+#footer h1 {
+    font-size: 16px;
+    font-weight: 400;
+    text-align: center;
+    opacity: 0.3;
+}

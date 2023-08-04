@@ -1,13 +1,18 @@
 :root {
-    --primary-color: #1D212F;
-    --secondary-color: #1a1e2b;
-    --highlight-color: #1F2433;
+    --primary-color: #3A7CA5;
+    --secondary-color: #3D88B3;
+    --highlight-color: #5BA6D4;
+    --accent-color: #53A0C9;
+
+    --search-text-color: #FFFFFF;
+    --result-text-color: #FFFFFF;
+    --heart-active-color: #ff6b6b;
 }
 
 #App {
     display: flex;
     flex-direction: column;
-    border: 2px solid #151721;
+    border: 2px solid var(--accent-color);
     border-radius: 10px;
 }
 
@@ -20,7 +25,7 @@
     padding: 10px;
     border-radius: 7px 7px 0 0;
     background-color: var(--primary-color);
-    box-shadow: 0 1px 1px #151721;
+    box-shadow: 0 1px 1px var(--accent-color);
 }
 
 .search-input {
@@ -31,28 +36,28 @@
     outline: none;
     font-size: 24px;
     margin: 0.25rem 0;
-    color: #FFFFFF;
+    color: var(--search-text-color);
     background-color: var(--primary-color);
 }
 
 .icon-container-fav {
     font-size: 24px;
-    color: #ff6b6b;
+    color: var(--heart-active-color);
     transition: color 0.2s;
 }
 
 .icon-container-non-fav {
     font-size: 24px;
-    color: #1D212F;
+    color: var(--primary-color);
     transition: color 0.2s;
 }
 
 .heart-button:hover .icon-container-non-fav {
-    color: #ff6b6b;
+    color: var(--heart-active-color);
 }
 
 .heart-button:hover .icon-container-fav {
-    color: #1D212F;
+    color: var(--primary-color);
 }
 
 #results {
@@ -106,14 +111,14 @@
     margin: 0;
     font-size: 20px;
     font-weight: 400;
-    color: #fff;
+    color: var(--result-text-color);
 }
 
 #footer {
     padding-bottom: 10px;
     opacity: 1;
     width: 100%;
-    background-color: #1D212F;
+    background-color: var(--primary-color);
     border-radius: 0 0 5px 5px;
 }
 
