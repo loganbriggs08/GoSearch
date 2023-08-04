@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-contextmenu": "^2.14.0",
     "react-icons": "^4.10.1"
   }
 }
