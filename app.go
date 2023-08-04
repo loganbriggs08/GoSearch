@@ -4,17 +4,18 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/NotKatsu/GoSearch/modules/dialog"
-	"github.com/NotKatsu/GoSearch/modules/os"
+	"github.com/NotKatsu/GoSearch/backend"
 
-	"github.com/NotKatsu/GoSearch/modules"
+	"github.com/NotKatsu/GoSearch/backend/dialog"
+	"github.com/NotKatsu/GoSearch/backend/os"
+
 	"github.com/pterm/pterm"
 
+	"github.com/NotKatsu/GoSearch/backend/search"
 	"github.com/NotKatsu/GoSearch/database"
-	"github.com/NotKatsu/GoSearch/modules/search"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 
-	"github.com/NotKatsu/GoSearch/modules/keystroke"
+	"github.com/NotKatsu/GoSearch/backend/keystroke"
 )
 
 type App struct {
@@ -53,15 +54,15 @@ func (a *App) HandleButtonClickEvent(application any) {
 	}
 }
 
-func (a *App) ToggleFavorite(name string, location string, favorite bool) []modules.FileReturnStruct {
+func (a *App) ToggleFavorite(name string, location string, favorite bool) []backend.FileReturnStruct {
 	database.UpdateFavorite(name, location, favorite)
 
 	return search.GetRecommended()
 }
 
-func (a *App) Search(query string) []modules.FileReturnStruct {
-	var arrayWithEmptyStruct []modules.FileReturnStruct
-	emptyStruct := modules.FileReturnStruct{}
+func (a *App) Search(query string) []backend.FileReturnStruct {
+	var arrayWithEmptyStruct []backend.FileReturnStruct
+	emptyStruct := backend.FileReturnStruct{}
 
 	arrayWithEmptyStruct = append(arrayWithEmptyStruct, emptyStruct)
 
