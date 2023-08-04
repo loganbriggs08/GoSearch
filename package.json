@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "rctx-contextmenu": "^1.4.1",
     "react-contextmenu": "^2.14.0",
     "react-icons": "^4.10.1"
   }
