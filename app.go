@@ -53,8 +53,10 @@ func (a *App) HandleButtonClickEvent(application any) {
 	}
 }
 
-func (a *App) ToggleFavorite(name string, location string, favorite bool) {
-	fmt.Println(name, location, favorite)
+func (a *App) ToggleFavorite(name string, location string, favorite bool) []modules.FileReturnStruct {
+	database.UpdateFavorite(name, location, favorite)
+
+	return search.GetRecommended()
 }
 
 func (a *App) Search(query string) []modules.FileReturnStruct {
