@@ -36,7 +36,13 @@ function App() {
     }
 
     const handleToggleFavorite = (application: FileReturnStruct) => {
-        ToggleFavorite(application.Name, application.Location, application.Favorite);
+        ToggleFavorite(application.Name, application.Location, application.Favorite).then((response: FileReturnStruct[] | null) => {
+            if (response === null || (response.length === 1 && response[0].Name === "")) {
+                setResults([]);
+            } else {
+                setResults(response);
+            }
+        })
     }
 
     const handleButtonClick = (result: FileReturnStruct) => {
