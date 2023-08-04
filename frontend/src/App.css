@@ -35,16 +35,6 @@
     background-color: var(--primary-color);
 }
 
-.heart-button {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    cursor: pointer;
-}
-
 .icon-container-fav {
     font-size: 24px;
     color: #ff6b6b;
@@ -74,12 +64,6 @@
 #resultcard {
     margin: 8px 20px;
     display: flex;
-}
-
-#resultcard button {
-    flex-basis: calc(33.33% - 16px);
-    flex-grow: 1;
-    display: flex;
     align-items: center;
     padding: 8px;
     border-radius: 10px;
@@ -89,8 +73,26 @@
     cursor: pointer;
 }
 
-#resultcard button:active {
-    background-color: var(--highlight-color);
+#resultcard .main-button {
+    flex: 7;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    background-color: var(--secondary-color);
+    border: none;
+    cursor: pointer;
+}
+
+#resultcard .heart-button {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 #resultcard img {

@@ -36,7 +36,6 @@ function App() {
     }
 
     const handleToggleFavorite = (application: FileReturnStruct) => {
-        event.stopPropagation();
         ToggleFavorite(application.Name, application.Location, application.Favorite);
     }
 
@@ -54,27 +53,28 @@ function App() {
             <div id="results" className="results-div">
                 {results.map((result) => (
                     <div key={result.Name} id="resultcard" className="result-card">
-                        <button onClick={() => handleButtonClick(result)}>
+                        <button onClick={() => handleButtonClick(result)} className="main-button">
                             <img src="https://cdn.discordapp.com/attachments/759689232326328323/1136057337015185559/Google_Chrome_icon_February_2022.svg.png" alt="result icon" />
                             <h1>{result.Name}</h1>
+                        </button>
 
-                            {result.Favorite ? (
+                        {result.Favorite ? (
+                            <button className="heart-button" onClick={() => handleToggleFavorite(result)}>
+                                <span className="icon-container-fav">
+                                    <AiFillHeart />
+                                </span>
+                            </button>
+                            ) : (
                                 <button className="heart-button" onClick={() => handleToggleFavorite(result)}>
-                                    <span className="icon-container-fav">
+                                    <span className="icon-container-non-fav">
                                         <AiFillHeart />
                                     </span>
                                 </button>
-                                ) : (
-                                    <button className="heart-button" onClick={() => handleToggleFavorite(result)}>
-                                        <span className="icon-container-non-fav">
-                                            <AiFillHeart />
-                                        </span>
-                                    </button>
-                                    )}
-                        </button>
+                                )}
                     </div>
-                ))}
+                    ))}
             </div>
+
 
             <div id="footer" className="footer-div">
                 {results.length === 0 && <h1>No Results found</h1>}
