@@ -67,6 +67,18 @@ func GetRecommendedApps() ([]modules.FileReturnStruct, error) {
 	return RecommendedAppStructArray, nil
 }
 
-func updateFavorite() {
+func UpdateFavorite(name string, location string, favorite bool) {
+	var favoriteNumberBool uint8
 
+	if favorite == true {
+		favoriteNumberBool = 0
+	} else {
+		favoriteNumberBool = 1
+	}
+
+	_, databaseUpdateError := database.Exec("UPDATE recommended_apps SET app_favorited = ? WHERE app_name = ? AND app_location = ?", favoriteNumberBool, name, location)
+
+	if databaseUpdateError != nil {
+		pterm.Fatal.WithFatal(true).Println(databaseUpdateError)
+	}
 }
