@@ -66,3 +66,7 @@ func GetRecommendedApps() ([]modules.FileReturnStruct, error) {
 
 	return RecommendedAppStructArray, nil
 }
+
+func updateFavorite() {
+
+}
