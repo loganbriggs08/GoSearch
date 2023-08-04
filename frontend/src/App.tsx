@@ -1,4 +1,4 @@
-import './App.css';
+import './themes/default-theme.css';
 import React, { useState, useEffect } from "react";
 import { Search, HandleButtonClickEvent, ToggleFavorite } from "../wailsjs/go/main/App";
 import { AiFillHeart } from "react-icons/ai";
@@ -53,7 +53,7 @@ function App() {
     return (
         <div id="App">
             <div id="input" className="search-box">
-                <input id="name" className="search-input" onChange={(e) => fetchSearchResults(e.target.value)} name="input" type="text" spellCheck="false" placeholder="Search..." />
+                <input id="search-bar" className="search-input" onChange={(e) => fetchSearchResults(e.target.value)} name="input" type="text" spellCheck="false" placeholder="Search..." />
             </div>
 
             <div id="results" className="results-div">
