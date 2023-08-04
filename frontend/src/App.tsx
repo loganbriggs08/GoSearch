@@ -1,4 +1,4 @@
-import './themes/default-theme.css';
+import './themes/blue-theme.css';
 import React, { useState, useEffect } from "react";
 import { Search, HandleButtonClickEvent, ToggleFavorite } from "../wailsjs/go/main/App";
 import { AiFillHeart } from "react-icons/ai";
@@ -51,7 +51,7 @@ function App() {
     }
 
     return (
-        <div id="App">
+        <div id="App" onContextMenu={(e) => {e.preventDefault()}}>
             <div id="input" className="search-box">
                 <input id="search-bar" className="search-input" onChange={(e) => fetchSearchResults(e.target.value)} name="input" type="text" spellCheck="false" placeholder="Search..." />
             </div>
