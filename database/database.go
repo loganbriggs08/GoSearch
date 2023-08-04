@@ -3,8 +3,9 @@ package database
 import (
 	"database/sql"
 
-	"github.com/NotKatsu/GoSearch/modules"
-	"github.com/NotKatsu/GoSearch/modules/os"
+	"github.com/NotKatsu/GoSearch/backend"
+
+	"github.com/NotKatsu/GoSearch/backend/os"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/pterm/pterm"
@@ -41,8 +42,8 @@ func SetupDatabase() bool {
 	}
 }
 
-func GetRecommendedApps() ([]modules.FileReturnStruct, error) {
-	var RecommendedAppStructArray []modules.FileReturnStruct
+func GetRecommendedApps() ([]backend.FileReturnStruct, error) {
+	var RecommendedAppStructArray []backend.FileReturnStruct
 	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits, app_favorited FROM recommended_apps ORDER BY CASE WHEN app_favorited = 1 THEN 0 ELSE 1 END, app_visits DESC LIMIT 15")
 
 	if recommendedAppsDatabaseQueryError != nil {
@@ -52,7 +53,7 @@ func GetRecommendedApps() ([]modules.FileReturnStruct, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		var currentRecommendedApp modules.FileReturnStruct
+		var currentRecommendedApp backend.FileReturnStruct
 
 		rowsScanError := rows.Scan(&currentRecommendedApp.Name, &currentRecommendedApp.Location, &currentRecommendedApp.Visits, &currentRecommendedApp.Favorite)
 
