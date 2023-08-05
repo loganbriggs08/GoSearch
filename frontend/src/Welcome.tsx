@@ -9,7 +9,9 @@ function WelcomeComponent() {
             
             <div className="main-text">
                 <h2>Information:</h2>
-                <p>In order for you to use GoSearch we first need to cache your system </p>
+                <p>In order for you to use GoSearch we first need to cache your system so we can provide you will file results at a super speed,
+                this means we need permission from you to do this as this could take a little time. We also need to add that to keep our cache as
+                speedy as possible we need to run GoSearch in the background to keep caching your files.</p>
             </div>
         </div>
         );
