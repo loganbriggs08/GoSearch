@@ -4,10 +4,12 @@ import { ClearCache, SetPage } from "../wailsjs/go/main/App"
 function SettingsComponent() {
     const [selectedOption, setSelectedOption] = useState('');
 
-    let themes = ["Blue Theme", "Cherry Blossom Theme", "Lavender Theme", "Mint Theme", "Default Theme"]
+    let themes = ["Blue Theme", "Cherry Blossom Theme", "Lavender Theme", "Mint Theme"]
 
     const handleOptionChange = (e: any) => {
         setSelectedOption(e.target.value);
+
+        console.log(e.target.value)
     };
     
     function deleteCache() {
@@ -31,7 +33,7 @@ function SettingsComponent() {
                     <h2>Select a Theme:</h2>
                     <p>Select a theme from the dropdown below.</p>
                     <select value={selectedOption} onChange={handleOptionChange}>
-                        <option value="">Select a Theme...</option>
+                        <option value="Default Theme">Default Theme</option>
                         {themes.map((theme) => (
                             <option value={theme}>{theme}</option>
                         ))}
