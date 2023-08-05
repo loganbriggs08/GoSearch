@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import './themes/default-theme.css';
 import SearchComponent from './Search';
 import SettingsComponent from './Settings';
 import { GetCurrentPage } from "../wailsjs/go/main/App";
+import { useTheme } from './ThemeContext';
 
-function App() {
+const App: React.FC = () => {
+  const {theme} = useTheme();
   const [currentPage, setCurrentPage] = useState('');
 
   useEffect(() => {
@@ -15,6 +16,8 @@ function App() {
 
   return (
     <div>
+      <link rel="stylesheet" href={`/src/themes/${theme}.css`} />
+
       {currentPage === "Search" && <SearchComponent />}
       {currentPage === "Settings" && <SettingsComponent />}
     </div>
