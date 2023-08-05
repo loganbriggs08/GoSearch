@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strings"
+	"time"
 
 	"github.com/NotKatsu/GoSearch/backend"
 
@@ -90,11 +91,11 @@ func (a *App) GetCurrentPage() string {
 
 func (a *App) SetPage(page string) {
 	currentPage = page
-	runtime.WindowReload(a.ctx)
-}
 
-func (a *App) ReloadApp() {
 	runtime.WindowReloadApp(a.ctx)
+	runtime.Hide(a.ctx)
+	time.Sleep(2 * time.Second)
+	runtime.Show(a.ctx)
 }
 
 func (a *App) Search(query string) []backend.FileReturnStruct {
