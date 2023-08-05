@@ -150,7 +150,7 @@
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .header-div p {
@@ -189,17 +189,20 @@
 }
 
 select {
-    padding: 12px;
-    font-size: 16px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 14px;
+    font-size: 17px;
     background-color: var(--highlight-color);
     color: var(--search-text-color);
     border: none;
-    border-radius: 10px;
+    border-radius: 5px;
     outline: none;
     margin-right: 20px;
     margin-left: 20px;
+    background-size: 20px;
 }
-
 
 .dangerous-actions-container {
     margin-left: 20px;
@@ -221,5 +224,6 @@ select {
     border: none;
     border-radius: 3px;
     cursor: pointer;
+    box-shadow: none;
     transition: background-color 0.2s;
 }
