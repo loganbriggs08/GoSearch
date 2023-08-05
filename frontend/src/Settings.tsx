@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ClearCache, ChangeTheme, CurrentTheme, ReloadApp } from "../wailsjs/go/main/App"
+import { ClearCache, SetPage, ChangeTheme, CurrentTheme } from "../wailsjs/go/main/App"
 
 function SettingsComponent() {
     const [selectedOption, setSelectedOption] = useState('');
@@ -19,11 +19,15 @@ function SettingsComponent() {
     };
 
     function deleteCache() {
-        ClearCache();
+        ClearCache().then((response: boolean) => {
+            if (response) {
+                SetPage("Search")
+            }
+        })
     }
 
-    function restartApp() {
-        ReloadApp();
+    function reloadApp() {
+        SetPage("Search")
     }
 
     return (
@@ -51,7 +55,7 @@ function SettingsComponent() {
                 <div className="dangerous-actions-container">
                     <h2>Dangerous Actions:</h2>
                     <button className="clear-cache-button" onClick={() => deleteCache()}>Clear Cache</button>
-                    <button className="restart-app-button" onClick={() => ReloadApp()}>Restart App</button>
+                    <button className="restart-app-button" onClick={() => reloadApp()}>Restart App</button>
                 </div>
             </div>
         </div>
