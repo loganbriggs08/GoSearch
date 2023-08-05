@@ -115,7 +115,7 @@ func UpdateFavorite(name string, location string, favorite bool) {
 }
 
 func ClearDatabaseCache() bool {
-	_, databaseClearCacheError := database.Exec("DELETE FROM recommended_apps, settings")
+	_, databaseClearCacheError := database.Exec("DELETE FROM recommended_apps; DELETE FROM settings")
 
 	if databaseClearCacheError != nil {
 		pterm.Fatal.WithFatal(true).Println(databaseClearCacheError)
