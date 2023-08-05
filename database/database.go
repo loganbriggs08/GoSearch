@@ -72,6 +72,20 @@ func SetTheme(theme string) bool {
 	}
 }
 
+func GetCurrentTheme() string {
+	var theme string
+
+	err := database.QueryRow("SELECT theme FROM settings WHERE id = 1").Scan(&theme)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			return "Default Theme"
+		}
+		pterm.Fatal.WithFatal(true).Println(err)
+	}
+	return theme
+}
+
 func GetRecommendedApps() ([]backend.FileReturnStruct, error) {
 	var RecommendedAppStructArray []backend.FileReturnStruct
 	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits, app_favorited FROM recommended_apps ORDER BY CASE WHEN app_favorited = 1 THEN 0 ELSE 1 END, app_visits DESC LIMIT 15")

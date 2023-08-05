@@ -80,6 +80,10 @@ func (a *App) ChangeTheme(theme string) {
 	}
 }
 
+func (a *App) CurrentTheme() string {
+
+}
+
 func (a *App) GetCurrentPage() string {
 	return currentPage
 }
