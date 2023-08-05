@@ -10,6 +10,10 @@ export function ClearCache() {
   return window['go']['main']['App']['ClearCache']();
 }
 
+export function CurrentTheme() {
+  return window['go']['main']['App']['CurrentTheme']();
+}
+
 export function GetCurrentPage() {
   return window['go']['main']['App']['GetCurrentPage']();
 }
