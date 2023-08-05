@@ -16,6 +16,14 @@
     border-radius: 10px;
 }
 
+#Settings {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--accent-color);
+    border-radius: 10px;
+    background-color: var(--primary-color);
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -128,3 +136,56 @@
     text-align: center;
     opacity: 0.3;
 }
+
+/*Extra CSS used in Settings:*/
+.header-div {
+    border-radius: 7px 7px 0 0;
+    padding: 20px;
+    background-color: var(--primary-color);
+    color: var(--search-text-color);
+}
+
+.header-div h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-div p {
+    margin-top: 0;
+    font-size: 17px;
+    opacity: 0.7;
+}
+
+.dropdown-container {
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-container h2 {
+    margin-top: 0;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.dropdown-container p {
+    margin-top: 0;
+    margin-left: 20px;
+    font-size: 17px;
+    opacity: 0.7;
+}
+
+select {
+    padding: 12px;
+    font-size: 16px;
+    background-color: var(--highlight-color);
+    color: var(--search-text-color);
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
