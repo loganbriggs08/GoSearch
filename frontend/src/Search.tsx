@@ -1,4 +1,3 @@
-import './themes/default-theme.css';
 import React, { useState, useEffect } from "react";
 import { Search, HandleButtonClickEvent, ToggleFavorite } from "../wailsjs/go/main/App";
 import { AiFillHeart } from "react-icons/ai";
@@ -14,9 +13,7 @@ export interface FileReturnStruct {
 function SearchComponent() {
     const [results, setResults] = useState<FileReturnStruct[]>([]);
     let debounceTimer: number | null = null;
-
-    let themes = ["Blue Theme", "Cherry Blossom Theme", "Lavender Theme", "Mint Theme", "Default Theme"]
-
+    
     useEffect(() => {
         fetchSearchResults("");
         }, []);
