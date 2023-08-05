@@ -78,6 +78,7 @@ func (a *App) GetCurrentPage() string {
 
 func (a *App) SetPage(page string) {
 	currentPage = page
+	runtime.WindowReload(a.ctx)
 }
 
 func (a *App) Search(query string) []backend.FileReturnStruct {
