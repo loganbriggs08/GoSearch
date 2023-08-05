@@ -12,8 +12,8 @@ function SettingsComponent() {
             <div id="header" className="header-div">
                 <h1>Settings:</h1>
                 <p>The Settings below are automatically saved after being updated.</p>
+                <hr class="rounded"/>
             </div>
-
 
             <div className="dropdown-container">
                 <h2>Select a Theme:</h2>
@@ -26,8 +26,7 @@ function SettingsComponent() {
                 </select>
             </div>
 
-
-            <div id="footer" className="footer-div">
+            <div id="settings-footer" className="settings-footer-div">
                 <h1>Made with ❤️ by Katsu.</h1>
             </div>
         </div>
