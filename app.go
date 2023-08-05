@@ -72,7 +72,7 @@ func (a *App) ClearCache() bool {
 	}
 }
 
-func GetCurrentPage() string {
+func (a *App) GetCurrentPage() string {
 	return currentPage
 }
 
