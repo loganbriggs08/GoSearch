@@ -6,6 +6,10 @@ export function ClearCache() {
   return window['go']['main']['App']['ClearCache']();
 }
 
+export function GetCurrentPage() {
+  return window['go']['main']['App']['GetCurrentPage']();
+}
+
 export function HandleButtonClickEvent(arg1) {
   return window['go']['main']['App']['HandleButtonClickEvent'](arg1);
 }

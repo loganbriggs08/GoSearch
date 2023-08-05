@@ -4,6 +4,8 @@ import {backend} from '../models';
 
 export function ClearCache():Promise<boolean>;
 
+export function GetCurrentPage():Promise<string>;
+
 export function HandleButtonClickEvent(arg1:any):Promise<void>;
 
 export function Search(arg1:string):Promise<Array<backend.FileReturnStruct>>;
