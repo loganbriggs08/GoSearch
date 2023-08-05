@@ -3,6 +3,8 @@ import React, {useState} from "react";
 function SettingsComponent() {
     const [selectedOption, setSelectedOption] = useState('');
 
+    let themes = ["Blue Theme", "Cherry Blossom Theme", "Lavender Theme", "Mint Theme", "Default Theme"]
+
     const handleOptionChange = (e: any) => {
         setSelectedOption(e.target.value);
     };
@@ -12,22 +14,26 @@ function SettingsComponent() {
             <div id="header" className="header-div">
                 <h1>Settings:</h1>
                 <p>The Settings below are automatically saved after being updated.</p>
-                <hr class="rounded"/>
+                <hr className="rounded"/>
             </div>
 
-            <div className="dropdown-container">
-                <h2>Select a Theme:</h2>
-                <p>Select a theme for GoSearch from the dropdown below.</p>
-                <select value={selectedOption} onChange={handleOptionChange}>
-                    <option value="">Select a Theme...</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
-                    <option value="option3">Option 3</option>
-                </select>
-            </div>
+            <div className="main-settings">
+                <div className="dropdown-container">
+                    <h2>Select a Theme:</h2>
+                    <p>Select a theme from the dropdown below.</p>
+                    <select value={selectedOption} onChange={handleOptionChange}>
+                        <option value="">Select a Theme...</option>
+                        {themes.map((theme) => (
+                            <option value={theme}>{theme}</option>
+                        ))}
 
-            <div id="settings-footer" className="settings-footer-div">
-                <h1>Made with ❤️ by Katsu.</h1>
+                    </select>
+                </div>
+
+                <div className="dangerous-actions-container">
+                    <h2>Dangerous Actions:</h2>
+                    <button>Clear Cache</button>
+                </div>
             </div>
         </div>
         );
