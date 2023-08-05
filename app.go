@@ -60,6 +60,10 @@ func (a *App) ToggleFavorite(name string, location string, favorite bool) []back
 	return search.GetRecommended()
 }
 
+func (a *App) ClearCache() bool {
+
+}
+
 func (a *App) Search(query string) []backend.FileReturnStruct {
 	var arrayWithEmptyStruct []backend.FileReturnStruct
 	emptyStruct := backend.FileReturnStruct{}
