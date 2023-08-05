@@ -22,6 +22,10 @@ export function HandleButtonClickEvent(arg1) {
   return window['go']['main']['App']['HandleButtonClickEvent'](arg1);
 }
 
+export function ReloadApp() {
+  return window['go']['main']['App']['ReloadApp']();
+}
+
 export function Search(arg1) {
   return window['go']['main']['App']['Search'](arg1);
 }
