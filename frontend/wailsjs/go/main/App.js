@@ -18,6 +18,10 @@ export function Search(arg1) {
   return window['go']['main']['App']['Search'](arg1);
 }
 
+export function SetPage(arg1) {
+  return window['go']['main']['App']['SetPage'](arg1);
+}
+
 export function ToggleFavorite(arg1, arg2, arg3) {
   return window['go']['main']['App']['ToggleFavorite'](arg1, arg2, arg3);
 }
