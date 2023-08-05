@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import { ClearCache, SetPage } from "../wailsjs/go/main/App"
 
 function SettingsComponent() {
     const [selectedOption, setSelectedOption] = useState('');
@@ -10,7 +11,11 @@ function SettingsComponent() {
     };
     
     function deleteCache() {
-
+        ClearCache().then((response: boolean) => {
+            if (response) {
+                SetPage("Search")
+            }
+        })
     }
 
     return (
