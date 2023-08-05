@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/NotKatsu/GoSearch/backend"
 
@@ -27,7 +28,7 @@ func GoSearch() *App {
 }
 
 var (
-	currentPage = "Settings"
+	currentPage = "Search"
 )
 
 func (a *App) startup(ctx context.Context) {
@@ -90,6 +91,10 @@ func (a *App) Search(query string) []backend.FileReturnStruct {
 	if query == "" {
 		return search.GetRecommended()
 	} else if query != "" {
+		if strings.ToLower(query) == "/settings" {
+			currentPage = "Settings"
+			runtime.WindowReload(a.ctx)
+		}
 		fmt.Println(query)
 		//		return search.Files(strings.ToLower(query))
 	}
