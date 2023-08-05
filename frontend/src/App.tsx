@@ -1,3 +1,4 @@
+import './themes/default-theme.css';
 import SearchComponent from './Search'
 import SettingsComponent from './Settings'
 
