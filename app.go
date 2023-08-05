@@ -81,7 +81,7 @@ func (a *App) ChangeTheme(theme string) {
 }
 
 func (a *App) CurrentTheme() string {
-
+	return database.GetCurrentTheme()
 }
 
 func (a *App) GetCurrentPage() string {
