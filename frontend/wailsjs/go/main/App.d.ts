@@ -12,8 +12,6 @@ export function GetCurrentPage():Promise<string>;
 
 export function HandleButtonClickEvent(arg1:any):Promise<void>;
 
-export function ReloadApp():Promise<void>;
-
 export function Search(arg1:string):Promise<Array<backend.FileReturnStruct>>;
 
 export function SetPage(arg1:string):Promise<void>;
