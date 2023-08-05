@@ -61,7 +61,11 @@ func (a *App) ToggleFavorite(name string, location string, favorite bool) []back
 }
 
 func (a *App) ClearCache() bool {
-
+	if database.ClearDatabaseCache() == true {
+		return true
+	} else {
+		return false
+	}
 }
 
 func (a *App) Search(query string) []backend.FileReturnStruct {
