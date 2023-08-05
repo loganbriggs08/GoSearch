@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { ClearCache, SetPage } from "../wailsjs/go/main/App"
+import { ClearCache, SetPage, ChangeTheme } from "../wailsjs/go/main/App"
 
 function SettingsComponent() {
     const [selectedOption, setSelectedOption] = useState('');
@@ -8,8 +8,7 @@ function SettingsComponent() {
 
     const handleOptionChange = (e: any) => {
         setSelectedOption(e.target.value);
-
-        console.log(e.target.value)
+        ChangeTheme(e.target.value)
     };
     
     function deleteCache() {
