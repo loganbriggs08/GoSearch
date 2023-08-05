@@ -93,6 +93,10 @@ func (a *App) SetPage(page string) {
 	runtime.WindowReload(a.ctx)
 }
 
+func (a *App) RestartApp() {
+
+}
+
 func (a *App) Search(query string) []backend.FileReturnStruct {
 	var arrayWithEmptyStruct []backend.FileReturnStruct
 	emptyStruct := backend.FileReturnStruct{}
