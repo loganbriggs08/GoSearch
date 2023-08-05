@@ -216,7 +216,7 @@ select {
     margin-bottom: 10px;
 }
 
-.dangerous-actions-container button {
+.clear-cache-button {
     padding: 7px 10px;
     font-size: 16px;
     background-color: #fe384c;
@@ -227,3 +227,15 @@ select {
     box-shadow: none;
     transition: background-color 0.2s;
 }
+
+.restart-app-button {
+    padding: 7px 10px;
+    background-color: #808080;
+    color: var(--search-text-color);
+    border: none;
+    font-size: 16px;
+    border-radius: 3px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
