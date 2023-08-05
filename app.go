@@ -26,6 +26,10 @@ func GoSearch() *App {
 	return &App{}
 }
 
+var (
+	currentPage = "Home"
+)
+
 func (a *App) startup(ctx context.Context) {
 	a.ctx = ctx
 
@@ -66,6 +70,10 @@ func (a *App) ClearCache() bool {
 	} else {
 		return false
 	}
+}
+
+func GetCurrentPage() string {
+	return currentPage
 }
 
 func (a *App) Search(query string) []backend.FileReturnStruct {
