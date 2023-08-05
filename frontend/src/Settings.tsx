@@ -9,6 +9,10 @@ function SettingsComponent() {
         setSelectedOption(e.target.value);
     };
     
+    function deleteCache() {
+
+    }
+
     return (
         <div id="Settings" onContextMenu={(e) => { e.preventDefault() }}>
             <div id="header" className="header-div">
@@ -32,7 +36,7 @@ function SettingsComponent() {
 
                 <div className="dangerous-actions-container">
                     <h2>Dangerous Actions:</h2>
-                    <button>Clear Cache</button>
+                    <button onClick={() => deleteCache()}>Clear Cache</button>
                 </div>
             </div>
         </div>
