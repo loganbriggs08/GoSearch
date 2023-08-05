@@ -93,8 +93,8 @@ func (a *App) SetPage(page string) {
 	runtime.WindowReload(a.ctx)
 }
 
-func (a *App) RestartApp() {
-
+func (a *App) ReloadApp() {
+	runtime.WindowReloadApp(a.ctx)
 }
 
 func (a *App) Search(query string) []backend.FileReturnStruct {
