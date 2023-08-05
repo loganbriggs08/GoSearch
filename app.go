@@ -73,6 +73,13 @@ func (a *App) ClearCache() bool {
 	}
 }
 
+func (a *App) ChangeTheme(theme string) {
+	if database.SetTheme(theme) == true {
+		currentPage = "Search"
+		runtime.WindowReload(a.ctx)
+	}
+}
+
 func (a *App) GetCurrentPage() string {
 	return currentPage
 }
