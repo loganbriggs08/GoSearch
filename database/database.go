@@ -33,12 +33,41 @@ func SetupDatabase() bool {
 	}
 
 	_, databaseTableCreationError1 := database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_icon_location VARCHAR(255), app_favorited BOOLEAN, app_visits BIGINT)")
-	_, databaseTableCreationError2 := database.Exec("CREATE TABLE IF NOT EXISTS settings(theme VARCHAR(255))")
+	_, databaseTableCreationError2 := database.Exec("CREATE TABLE IF NOT EXISTS settings(id BIGINT, theme VARCHAR(255))")
 
 	if databaseTableCreationError1 != nil && databaseTableCreationError2 != nil {
 		pterm.Fatal.WithFatal(true).Println(err)
 		return false
 	} else {
+		return true
+	}
+}
+
+func SetTheme(theme string) bool {
+	var count int
+
+	err := database.QueryRow("SELECT COUNT(*) FROM settings WHERE id = 1").Scan(&count)
+
+	if err != nil {
+		pterm.Fatal.WithFatal(true).Println(err)
+		return false
+	}
+
+	if count == 0 {
+		_, err = database.Exec("INSERT INTO settings (id, theme) VALUES (1, ?)", theme)
+
+		if err != nil {
+			pterm.Fatal.WithFatal(true).Println(err)
+			return false
+		}
+		return true
+	} else {
+		_, err = database.Exec("UPDATE settings SET theme = ? WHERE id = 1", theme)
+
+		if err != nil {
+			pterm.Fatal.WithFatal(true).Println(err)
+			return false
+		}
 		return true
 	}
 }
