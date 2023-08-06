@@ -6,20 +6,12 @@ export function CacheSystem() {
   return window['go']['main']['App']['CacheSystem']();
 }
 
-export function ChangeTheme(arg1) {
-  return window['go']['main']['App']['ChangeTheme'](arg1);
-}
-
 export function ClearCache() {
   return window['go']['main']['App']['ClearCache']();
 }
 
 export function CloseApp() {
   return window['go']['main']['App']['CloseApp']();
-}
-
-export function CurrentTheme() {
-  return window['go']['main']['App']['CurrentTheme']();
 }
 
 export function GetCurrentPage() {

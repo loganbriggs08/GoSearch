@@ -1,23 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { ClearCache, SetPage, ChangeTheme, CurrentTheme } from "../wailsjs/go/main/App"
+import { ClearCache, SetPage } from "../wailsjs/go/main/App"
 
 function SettingsComponent() {
-    const [selectedOption, setSelectedOption] = useState('');
-    const [ourSetTheme, setOurSetTheme] = useState('')
-
-    let themes = ["Blue Theme", "Cherry Blossom Theme", "Lavender Theme", "Mint Theme", "Default Theme"]
-
-    useEffect(() => {
-        CurrentTheme().then((response: string) => {
-            setOurSetTheme(response)
-        })
-        }, []);
-
-    const handleOptionChange = (e: any) => {
-        setSelectedOption(e.target.value);
-        ChangeTheme(e.target.value)
-    };
-
     function deleteCache() {
         ClearCache().then((response: boolean) => {
             if (response) {
@@ -42,14 +25,7 @@ function SettingsComponent() {
                 <div className="dropdown-container">
                     <h2>Select a Theme:</h2>
                     <p>Select a theme from the dropdown below.</p>
-                    <select value={selectedOption} onChange={handleOptionChange}>
-                        <option value={ourSetTheme}>{ourSetTheme}</option>
-                        {themes.map((theme) => {
-                            if (theme !== ourSetTheme) {
-                                return <option value={theme}>{theme}</option>
-                            }})}
 
-                    </select>
                 </div>
 
                 <div className="dangerous-actions-container">
