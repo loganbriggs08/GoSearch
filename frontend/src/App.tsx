@@ -4,6 +4,7 @@ import { useTheme } from './ThemeContext';
 import SearchComponent from './Search';
 import SettingsComponent from './Settings';
 import WelcomeComponent from "./Welcome";
+import SetupComponent from "./Setup";
 
 const App: React.FC = () => {
   const {theme} = useTheme();
@@ -20,6 +21,7 @@ const App: React.FC = () => {
       <link rel="stylesheet" href={`/src/themes/${theme}.css`} />
 
       {currentPage === "Welcome" && <WelcomeComponent />}
+      {currentPage === "Setup" && <SetupComponent />}
       {currentPage === "Search" && <SearchComponent />}
       {currentPage === "Settings" && <SettingsComponent />}
     </div>
