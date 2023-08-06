@@ -60,6 +60,16 @@ func OpenExecutable(executablePath string) bool {
 	return true
 }
 
+func getDiskRoots() []string {
+	var roots []string
+	if drives, err := filepath.Glob("/*"); err == nil {
+		for _, drive := range drives {
+			roots = append(roots, filepath.VolumeName(drive))
+		}
+	}
+	return roots
+}
+
 func CacheSystem() {
 	
 }
