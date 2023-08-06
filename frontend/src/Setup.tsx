@@ -1,6 +1,13 @@
-import {CloseApp} from "../wailsjs/go/main/App";
+import React, {useEffect} from "react";
+import {CacheSystem} from "../wailsjs/go/main/App";
 
 function SetupComponent() {
+    function cacheSystem() {CacheSystem();}
+
+    useEffect(() => {
+        cacheSystem();
+    }, []);
+
     return (
         <div id="Welcome" onContextMenu={(e) => { e.preventDefault() }}>
             <div id="header" className="header-div">
