@@ -93,9 +93,6 @@ func (a *App) SetPage(page string) {
 	currentPage = page
 
 	runtime.WindowReloadApp(a.ctx)
-	runtime.Hide(a.ctx)
-	time.Sleep(2 * time.Second)
-	runtime.Show(a.ctx)
 }
 
 func (a *App) CloseApp() {
