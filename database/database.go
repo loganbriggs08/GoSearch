@@ -37,7 +37,7 @@ func SetupDatabase() bool {
 	}
 
 	_, databaseTableCreationError1 := default_database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_icon_location VARCHAR(255), app_favorited BOOLEAN, app_visits BIGINT)")
-	_, databaseTableCreationError2 := default_database.Exec("CREATE TABLE IF NOT EXISTS settings(id BIGINT, theme VARCHAR(255))")
+	_, databaseTableCreationError2 := default_database.Exec("CREATE TABLE IF NOT EXISTS settings()")
 	_, databaseTableCreationError3 := cache_database.Exec("CREATE TABLE IF NOT EXISTS cache(file_location VARCHAR(255), file_name VARCHAR(255), file_extention)")
 
 	if databaseTableCreationError1 != nil && databaseTableCreationError2 != nil && databaseTableCreationError3 != nil {
@@ -68,49 +68,6 @@ func CacheSize() int64 {
 		return 0
 	}
 	return CacheRecordCount
-}
-
-func SetTheme(theme string) bool {
-	var count int
-
-	err := default_database.QueryRow("SELECT COUNT(*) FROM settings WHERE id = 1").Scan(&count)
-
-	if err != nil {
-		pterm.Fatal.WithFatal(true).Println(err)
-		return false
-	}
-
-	if count == 0 {
-		_, err = default_database.Exec("INSERT INTO settings (id, theme) VALUES (1, ?)", theme)
-
-		if err != nil {
-			pterm.Fatal.WithFatal(true).Println(err)
-			return false
-		}
-		return true
-	} else {
-		_, err = default_database.Exec("UPDATE settings SET theme = ? WHERE id = 1", theme)
-
-		if err != nil {
-			pterm.Fatal.WithFatal(true).Println(err)
-			return false
-		}
-		return true
-	}
-}
-
-func GetCurrentTheme() string {
-	var theme string
-
-	err := default_database.QueryRow("SELECT theme FROM settings WHERE id = 1").Scan(&theme)
-
-	if err != nil {
-		if err == sql.ErrNoRows {
-			return "Default Theme"
-		}
-		pterm.Fatal.WithFatal(true).Println(err)
-	}
-	return theme
 }
 
 func GetRecommendedApps() ([]backend.FileReturnStruct, error) {
@@ -156,10 +113,11 @@ func UpdateFavorite(name string, location string, favorite bool) {
 }
 
 func ClearDatabaseCache() bool {
-	_, databaseClearCacheError := default_database.Exec("DELETE FROM recommended_apps; DELETE FROM settings")
+	_, databaseClearCacheErrorOne := default_database.Exec("DELETE FROM recommended_apps")
+	_, databaseClearCacheErrorTwo := cache_database.Exec("DELETE FROM cache")
 
-	if databaseClearCacheError != nil {
-		pterm.Fatal.WithFatal(true).Println(databaseClearCacheError)
+	if databaseClearCacheErrorOne != nil && databaseClearCacheErrorTwo != nil {
+		pterm.Fatal.WithFatal(true).Println(databaseClearCacheErrorOne, databaseClearCacheErrorTwo)
 		return false
 	} else {
 		return true
