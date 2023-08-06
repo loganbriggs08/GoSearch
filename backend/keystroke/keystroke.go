@@ -10,6 +10,10 @@ import (
 
 var CurrentWindowStateOpen bool
 
+func OverWriteState(state bool) {
+	CurrentWindowStateOpen = state
+}
+
 func Listener(ctx context.Context) {
 	err := termbox.Init()
 
