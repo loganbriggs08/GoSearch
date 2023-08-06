@@ -1,9 +1,6 @@
 import {CloseApp} from "../wailsjs/go/main/App";
 
 function SetupComponent() {
-
-    function closeApp() {CloseApp()}
-
     return (
         <div id="Welcome" onContextMenu={(e) => { e.preventDefault() }}>
             <div id="header" className="header-div">
