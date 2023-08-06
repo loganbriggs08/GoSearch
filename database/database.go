@@ -34,8 +34,9 @@ func SetupDatabase() bool {
 
 	_, databaseTableCreationError1 := database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_icon_location VARCHAR(255), app_favorited BOOLEAN, app_visits BIGINT)")
 	_, databaseTableCreationError2 := database.Exec("CREATE TABLE IF NOT EXISTS settings(id BIGINT, theme VARCHAR(255))")
+	_, databaseTableCreationError3 := database.Exec("CREATE TABLE IF NOT EXISTS cache(file_location VARCHAR(255), file_name VARCHAR(255), file_extention)")
 
-	if databaseTableCreationError1 != nil && databaseTableCreationError2 != nil {
+	if databaseTableCreationError1 != nil && databaseTableCreationError2 != nil && databaseTableCreationError3 != nil {
 		pterm.Fatal.WithFatal(true).Println(err)
 		return false
 	} else {
