@@ -48,6 +48,18 @@ func SetupDatabase() bool {
 	}
 }
 
+func CacheSize() int64 {
+	var CacheRecordCount int64
+
+	err := default_database.QueryRow("SELECT COUNT(*) FROM cache").Scan(&CacheRecordCount)
+
+	if err != nil {
+		pterm.Fatal.WithFatal(true).Println(err)
+		return 0
+	}
+	return CacheRecordCount
+}
+
 func SetTheme(theme string) bool {
 	var count int
 
