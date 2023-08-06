@@ -58,16 +58,18 @@ func InsertIntoCache(fileLocation string, fileName string, fileExtention string)
 	return true
 }
 
-func CacheSize() int64 {
-	var CacheRecordCount int64
+func SystemCached() bool {
+	var systemCached bool
 
-	err := cache_database.QueryRow("SELECT COUNT(*) FROM cache").Scan(&CacheRecordCount)
+	err := default_database.QueryRow("SELECT system_cached FROM settings LIMIT 1").Scan(&systemCached)
 
 	if err != nil {
+		if err == sql.ErrNoRows {
+			return false
+		}
 		pterm.Fatal.WithFatal(true).Println(err)
-		return 0
 	}
-	return CacheRecordCount
+	return systemCached
 }
 
 func GetRecommendedApps() ([]backend.FileReturnStruct, error) {
