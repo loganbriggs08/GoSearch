@@ -11,33 +11,37 @@ import (
 	"github.com/pterm/pterm"
 )
 
-var database *sql.DB
+var default_database *sql.DB
+var cache_database *sql.DB
 
 func SetupDatabase() bool {
-	var err error
+	var databaseErrorOne error
+	var databaseErrorTwo error
 
 	location, createAppDataFolderError := os.CreateAppDataFolder()
 
 	if createAppDataFolderError != nil {
-		pterm.Fatal.WithFatal(true).Println(err)
+		pterm.Fatal.WithFatal(true).Println(createAppDataFolderError)
 		return false
 	}
 
-	databaseLocation := location + "/cache.db"
+	defaultDatabaseLocation := location + "/default_database.db"
+	cacheDatabaseLocation := location + "/cache.db"
 
-	database, err = sql.Open("sqlite3", databaseLocation)
+	default_database, databaseErrorOne = sql.Open("sqlite3", defaultDatabaseLocation)
+	cache_database, databaseErrorTwo = sql.Open("sqlite3", cacheDatabaseLocation)
 
-	if err != nil {
-		pterm.Fatal.WithFatal(true).Println(err)
+	if databaseErrorOne != nil && databaseErrorTwo != nil {
+		pterm.Fatal.WithFatal(true).Println(databaseErrorOne, databaseErrorTwo)
 		return false
 	}
 
-	_, databaseTableCreationError1 := database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_icon_location VARCHAR(255), app_favorited BOOLEAN, app_visits BIGINT)")
-	_, databaseTableCreationError2 := database.Exec("CREATE TABLE IF NOT EXISTS settings(id BIGINT, theme VARCHAR(255))")
-	_, databaseTableCreationError3 := database.Exec("CREATE TABLE IF NOT EXISTS cache(file_location VARCHAR(255), file_name VARCHAR(255), file_extention)")
+	_, databaseTableCreationError1 := default_database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_icon_location VARCHAR(255), app_favorited BOOLEAN, app_visits BIGINT)")
+	_, databaseTableCreationError2 := default_database.Exec("CREATE TABLE IF NOT EXISTS settings(id BIGINT, theme VARCHAR(255))")
+	_, databaseTableCreationError3 := cache_database.Exec("CREATE TABLE IF NOT EXISTS cache(file_location VARCHAR(255), file_name VARCHAR(255), file_extention)")
 
 	if databaseTableCreationError1 != nil && databaseTableCreationError2 != nil && databaseTableCreationError3 != nil {
-		pterm.Fatal.WithFatal(true).Println(err)
+		pterm.Fatal.WithFatal(true).Println(databaseTableCreationError1, databaseTableCreationError2, databaseTableCreationError3)
 		return false
 	} else {
 		return true
@@ -47,7 +51,7 @@ func SetupDatabase() bool {
 func SetTheme(theme string) bool {
 	var count int
 
-	err := database.QueryRow("SELECT COUNT(*) FROM settings WHERE id = 1").Scan(&count)
+	err := default_database.QueryRow("SELECT COUNT(*) FROM settings WHERE id = 1").Scan(&count)
 
 	if err != nil {
 		pterm.Fatal.WithFatal(true).Println(err)
@@ -55,7 +59,7 @@ func SetTheme(theme string) bool {
 	}
 
 	if count == 0 {
-		_, err = database.Exec("INSERT INTO settings (id, theme) VALUES (1, ?)", theme)
+		_, err = default_database.Exec("INSERT INTO settings (id, theme) VALUES (1, ?)", theme)
 
 		if err != nil {
 			pterm.Fatal.WithFatal(true).Println(err)
@@ -63,7 +67,7 @@ func SetTheme(theme string) bool {
 		}
 		return true
 	} else {
-		_, err = database.Exec("UPDATE settings SET theme = ? WHERE id = 1", theme)
+		_, err = default_database.Exec("UPDATE settings SET theme = ? WHERE id = 1", theme)
 
 		if err != nil {
 			pterm.Fatal.WithFatal(true).Println(err)
@@ -76,7 +80,7 @@ func SetTheme(theme string) bool {
 func GetCurrentTheme() string {
 	var theme string
 
-	err := database.QueryRow("SELECT theme FROM settings WHERE id = 1").Scan(&theme)
+	err := default_database.QueryRow("SELECT theme FROM settings WHERE id = 1").Scan(&theme)
 
 	if err != nil {
 		if err == sql.ErrNoRows {
@@ -89,7 +93,7 @@ func GetCurrentTheme() string {
 
 func GetRecommendedApps() ([]backend.FileReturnStruct, error) {
 	var RecommendedAppStructArray []backend.FileReturnStruct
-	rows, recommendedAppsDatabaseQueryError := database.Query("SELECT app_name, app_location, app_visits, app_favorited FROM recommended_apps ORDER BY CASE WHEN app_favorited = 1 THEN 0 ELSE 1 END, app_visits DESC LIMIT 15")
+	rows, recommendedAppsDatabaseQueryError := default_database.Query("SELECT app_name, app_location, app_visits, app_favorited FROM recommended_apps ORDER BY CASE WHEN app_favorited = 1 THEN 0 ELSE 1 END, app_visits DESC LIMIT 15")
 
 	if recommendedAppsDatabaseQueryError != nil {
 		pterm.Fatal.WithFatal(true).Println(recommendedAppsDatabaseQueryError)
@@ -122,7 +126,7 @@ func UpdateFavorite(name string, location string, favorite bool) {
 		favoriteNumberBool = 1
 	}
 
-	_, databaseUpdateError := database.Exec("UPDATE recommended_apps SET app_favorited = ? WHERE app_name = ? AND app_location = ?", favoriteNumberBool, name, location)
+	_, databaseUpdateError := default_database.Exec("UPDATE recommended_apps SET app_favorited = ? WHERE app_name = ? AND app_location = ?", favoriteNumberBool, name, location)
 
 	if databaseUpdateError != nil {
 		pterm.Fatal.WithFatal(true).Println(databaseUpdateError)
@@ -130,7 +134,7 @@ func UpdateFavorite(name string, location string, favorite bool) {
 }
 
 func ClearDatabaseCache() bool {
-	_, databaseClearCacheError := database.Exec("DELETE FROM recommended_apps; DELETE FROM settings")
+	_, databaseClearCacheError := default_database.Exec("DELETE FROM recommended_apps; DELETE FROM settings")
 
 	if databaseClearCacheError != nil {
 		pterm.Fatal.WithFatal(true).Println(databaseClearCacheError)
