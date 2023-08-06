@@ -14,10 +14,10 @@ function WelcomeComponent() {
             </div>
 
             <div className="information-container">
-                <h2>Information:</h2>
-                <p>In order for you to use GoSearch we first need to cache your system so we can provide you with file results at a super speed,
-                    this means we need consent from you to do this as this could take a little time. We also need to add that to keep our cache as
-                    speedy as possible we need to run GoSearch in the background to keep caching your files.</p>
+                <h2>Disclaimer:</h2>
+                <p>By clicking the Continue button you agree to let us cache the locations of your files in order to ensure GoSearch
+                functions as intended, you also agree to allow GoSearch to actively search for new files to be cached, this cache is
+                stored on your system.</p>
             </div>
 
             <div className="continue-button-container">
