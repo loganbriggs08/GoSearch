@@ -6,6 +6,8 @@ import (
 	"os/user"
 	"path/filepath"
 
+	"github.com/NotKatsu/GoSearch/database"
+
 	"github.com/pterm/pterm"
 )
 
@@ -70,6 +72,29 @@ func getDiskRoots() []string {
 	return roots
 }
 
-func CacheSystem() {
-	
+func addDataToDatabase(path string, info os.FileInfo, err error) error {
+	if err != nil {
+		if os.IsPermission(err) {
+			return nil
+		} else {
+			pterm.Fatal.WithFatal(true).Println(err)
+			return err
+		}
+	}
+
+	database.InsertIntoCache(path, filepath.Base(path), filepath.Ext(path))
+	return nil
+}
+
+func CacheSystem() bool {
+	roots := getDiskRoots()
+
+	for _, root := range roots {
+		filepathWalkError := filepath.Walk(root, addDataToDatabase)
+		if filepathWalkError != nil {
+			pterm.Fatal.WithFatal(true).Println(filepathWalkError)
+		} else {
+			return false
+		}
+	}
 }
