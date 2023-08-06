@@ -36,6 +36,12 @@ func (a *App) startup(ctx context.Context) {
 
 	if database.SetupDatabase() == true {
 		go keystroke.Listener(a.ctx)
+
+		if database.CacheSize() <= 0 {
+			a.SetPage("Welcome")
+		} else {
+			a.SetPage("Search")
+		}
 	} else {
 		runtime.Quit(a.ctx)
 	}
@@ -65,6 +71,10 @@ func (a *App) ToggleFavorite(name string, location string, favorite bool) []back
 	return search.GetRecommended()
 }
 
+func (a *App) CacheSystem() {
+	
+}
+
 func (a *App) ClearCache() bool {
 	if database.ClearDatabaseCache() == true {
 		return true
@@ -92,6 +102,8 @@ func (a *App) SetPage(page string) {
 	currentPage = page
 
 	runtime.WindowReloadApp(a.ctx)
+	runtime.WindowShow(a.ctx)
+	keystroke.CurrentWindowStateOpen = true
 }
 
 func (a *App) CloseApp() {

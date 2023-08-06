@@ -11,7 +11,7 @@ import (
 
 func GetAppDataFolder() (string, error) {
 	currentUser, err := user.Current()
-	
+
 	if err != nil {
 		return "", err
 	}
@@ -23,7 +23,7 @@ func GetAppDataFolder() (string, error) {
 
 func CreateAppDataFolder() (string, error) {
 	appDataPath, err := GetAppDataFolder()
-	
+
 	if err != nil {
 		return "", err
 	}
@@ -32,7 +32,7 @@ func CreateAppDataFolder() (string, error) {
 
 	if _, err := os.Stat(appDataFolderPath); os.IsNotExist(err) {
 		err = os.MkdirAll(appDataFolderPath, 0755)
-		
+
 		if err != nil {
 			return "", err
 		}
@@ -58,4 +58,8 @@ func OpenExecutable(executablePath string) bool {
 	}
 
 	return true
+}
+
+func CacheSystem() {
+
 }
