@@ -37,10 +37,10 @@ func (a *App) startup(ctx context.Context) {
 	if database.SetupDatabase() == true {
 		go keystroke.Listener(a.ctx)
 
-		if database.CacheSize() <= 0 {
-			a.SetPage("Welcome")
-		} else {
+		if database.SystemCached() == true {
 			a.SetPage("Search")
+		} else {
+			a.SetPage("Welcome")
 		}
 	} else {
 		runtime.Quit(a.ctx)
