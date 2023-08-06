@@ -24,6 +24,14 @@
     background-color: var(--primary-color);
 }
 
+#Welcome {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--accent-color);
+    border-radius: 10px;
+    background-color: var(--primary-color);
+}
+
 ::-webkit-scrollbar {
     display: none;
 }
@@ -237,4 +245,65 @@ select {
     border-radius: 3px;
     margin-left: 10px;
     cursor: pointer;
+}
+
+/*Extra CSS used in Welcome Screen:*/
+
+.information-container {
+    background-color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+}
+
+.information-container h2 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-top: 0;
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.information-container p {
+    margin-top: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    font-size: 17px;
+    opacity: 0.7;
+}
+
+.continue-button-container {
+    margin-left: auto;
+    margin-right: 20px;
+    margin-bottom: 20px
+}
+
+.cancel-button {
+    padding: 7px 10px;
+    font-size: 16px;
+    margin-right: 10px;
+    background-color: #fe384c;
+    color: var(--search-text-color);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background-color 0.2s;
+}
+
+.continue-button {
+    padding: 7px 10px;
+    font-size: 16px;
+    background-color: #029c54;
+    color: var(--search-text-color);
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background-color 0.2s;
+}
+
+.information-container {
+    margin-left: auto;
+    margin-right: 20px;
+    margin-bottom: 20px
 }
