@@ -5,10 +5,11 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/NotKatsu/GoSearch/backend/machine"
+
 	"github.com/NotKatsu/GoSearch/backend"
 
 	"github.com/NotKatsu/GoSearch/backend/dialog"
-	"github.com/NotKatsu/GoSearch/backend/os"
 
 	"github.com/pterm/pterm"
 
@@ -55,7 +56,7 @@ func (a *App) HandleButtonClickEvent(application any) {
 		applicationName := applicationMap["Name"].(string)
 		applicationLocation := applicationMap["Location"].(string)
 
-		if os.OpenExecutable(applicationLocation) == false {
+		if machine.OpenExecutable(applicationLocation) == false {
 			errorMessage := "Failed to open " + applicationName
 			dialog.ErrorDialog(errorMessage)
 		}
@@ -72,7 +73,8 @@ func (a *App) ToggleFavorite(name string, location string, favorite bool) []back
 }
 
 func (a *App) CacheSystem() {
-	fmt.Println("Hello World")
+	result := machine.CacheSystem()
+	fmt.Println(result)
 }
 
 func (a *App) ClearCache() bool {
