@@ -2,10 +2,9 @@ package database
 
 import (
 	"database/sql"
+	"github.com/NotKatsu/GoSearch/backend/appdata"
 
 	"github.com/NotKatsu/GoSearch/backend"
-
-	"github.com/NotKatsu/GoSearch/backend/os"
 
 	_ "github.com/mattn/go-sqlite3"
 	"github.com/pterm/pterm"
@@ -18,7 +17,7 @@ func SetupDatabase() bool {
 	var databaseErrorOne error
 	var databaseErrorTwo error
 
-	location, createAppDataFolderError := os.CreateAppDataFolder()
+	location, createAppDataFolderError := appdata.CreateAppDataFolder()
 
 	if createAppDataFolderError != nil {
 		pterm.Fatal.WithFatal(true).Println(createAppDataFolderError)
@@ -72,6 +71,18 @@ func SystemCached() bool {
 	return systemCached
 }
 
+func ClearDatabaseCache() bool {
+	_, databaseClearCacheErrorOne := default_database.Exec("DELETE FROM recommended_apps")
+	_, databaseClearCacheErrorTwo := cache_database.Exec("DELETE FROM cache")
+
+	if databaseClearCacheErrorOne != nil && databaseClearCacheErrorTwo != nil {
+		pterm.Fatal.WithFatal(true).Println(databaseClearCacheErrorOne, databaseClearCacheErrorTwo)
+		return false
+	} else {
+		return true
+	}
+}
+
 func GetRecommendedApps() ([]backend.FileReturnStruct, error) {
 	var RecommendedAppStructArray []backend.FileReturnStruct
 	rows, recommendedAppsDatabaseQueryError := default_database.Query("SELECT app_name, app_location, app_visits, app_favorited FROM recommended_apps ORDER BY CASE WHEN app_favorited = 1 THEN 0 ELSE 1 END, app_visits DESC LIMIT 15")
@@ -111,17 +122,5 @@ func UpdateFavorite(name string, location string, favorite bool) {
 
 	if databaseUpdateError != nil {
 		pterm.Fatal.WithFatal(true).Println(databaseUpdateError)
-	}
-}
-
-func ClearDatabaseCache() bool {
-	_, databaseClearCacheErrorOne := default_database.Exec("DELETE FROM recommended_apps")
-	_, databaseClearCacheErrorTwo := cache_database.Exec("DELETE FROM cache")
-
-	if databaseClearCacheErrorOne != nil && databaseClearCacheErrorTwo != nil {
-		pterm.Fatal.WithFatal(true).Println(databaseClearCacheErrorOne, databaseClearCacheErrorTwo)
-		return false
-	} else {
-		return true
 	}
 }
