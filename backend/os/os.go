@@ -93,8 +93,11 @@ func CacheSystem() bool {
 		filepathWalkError := filepath.Walk(root, addDataToDatabase)
 		if filepathWalkError != nil {
 			pterm.Fatal.WithFatal(true).Println(filepathWalkError)
-		} else {
 			return false
+		} else {
+			return true
 		}
 	}
+
+	return true
 }
