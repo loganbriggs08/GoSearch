@@ -23,8 +23,8 @@ function SettingsComponent() {
 
             <div className="main-settings">
                 <div className="dropdown-container">
-                    <h2>Select a Theme:</h2>
-                    <p>Select a theme from the dropdown below.</p>
+                    <h2>Coming soon..</h2>
+                    <p>Theres not much here right now however there will be soon.</p>
 
                 </div>
 
