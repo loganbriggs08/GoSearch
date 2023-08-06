@@ -302,8 +302,3 @@ select {
     transition: background-color 0.2s;
 }
 
-.information-container {
-    margin-left: auto;
-    margin-right: 20px;
-    margin-bottom: 20px
-}
