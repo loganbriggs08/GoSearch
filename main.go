@@ -18,29 +18,29 @@ func main() {
 	GoSearchApp := GoSearch()
 
 	err := wails.Run(&options.App{
-		Title:  "GoSearch",
-		Width:  650,
-		Height: 350,
-		Frameless: true,
+		Title:         "GoSearch",
+		Width:         650,
+		Height:        350,
+		Frameless:     true,
 		DisableResize: true,
-		AlwaysOnTop: true,
-		StartHidden: true,
+		AlwaysOnTop:   true,
+		StartHidden:   false,
 
 		AssetServer: &assetserver.Options{
 			Assets: assets,
-			},
-			Windows: &windows.Options{
-			WebviewIsTransparent: true,
-			WindowIsTranslucent: true,
+		},
+		Windows: &windows.Options{
+			WebviewIsTransparent:              true,
+			WindowIsTranslucent:               true,
 			DisableFramelessWindowDecorations: true,
-			},
-			OnStartup: GoSearchApp.startup,
-			Bind: []interface{}{
+		},
+		OnStartup: GoSearchApp.startup,
+		Bind: []interface{}{
 			GoSearchApp,
-			},
-			})
+		},
+	})
 
-		if err != nil {
-			pterm.Fatal.WithFatal(true).Println(err)
-		}
+	if err != nil {
+		pterm.Fatal.WithFatal(true).Println(err)
+	}
 }
