@@ -29,7 +29,7 @@ func GoSearch() *App {
 }
 
 var (
-	currentPage = "Search"
+	currentPage = "Welcome"
 )
 
 func (a *App) startup(ctx context.Context) {
@@ -96,6 +96,10 @@ func (a *App) SetPage(page string) {
 	runtime.Hide(a.ctx)
 	time.Sleep(2 * time.Second)
 	runtime.Show(a.ctx)
+}
+
+func (a *App) CloseApp() {
+	runtime.Quit(a.ctx)
 }
 
 func (a *App) Search(query string) []backend.FileReturnStruct {
