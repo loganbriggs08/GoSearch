@@ -6,6 +6,8 @@ export function ChangeTheme(arg1:string):Promise<void>;
 
 export function ClearCache():Promise<boolean>;
 
+export function CloseApp():Promise<void>;
+
 export function CurrentTheme():Promise<string>;
 
 export function GetCurrentPage():Promise<string>;
