@@ -2,13 +2,13 @@ package keystroke
 
 import (
 	"context"
-	
-	"github.com/pterm/pterm"
+
 	"github.com/nsf/termbox-go"
+	"github.com/pterm/pterm"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-var currentWindowStateOpen bool
+var CurrentWindowStateOpen bool
 
 func Listener(ctx context.Context) {
 	err := termbox.Init()
@@ -23,13 +23,13 @@ func Listener(ctx context.Context) {
 
 		if event.Type == termbox.EventKey {
 			if event.Key == termbox.KeyEsc {
-				if currentWindowStateOpen == true {
+				if CurrentWindowStateOpen == true {
 					runtime.Hide(ctx)
-					currentWindowStateOpen = false
+					CurrentWindowStateOpen = false
 				}
 			} else if event.Key == termbox.KeyF5 {
 				runtime.Show(ctx)
-				currentWindowStateOpen = true
+				CurrentWindowStateOpen = true
 			}
 		}
 	}
