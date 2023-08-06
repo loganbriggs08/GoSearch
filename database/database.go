@@ -48,6 +48,16 @@ func SetupDatabase() bool {
 	}
 }
 
+func InsertIntoCache(fileLocation string, fileName string, fileExtention string) bool {
+	_, InsertIntoCacheError := cache_database.Exec("INSERT INTO cache(file_location, file_name, file_extention) VALUES (?, ?, ?)", fileLocation, fileName, fileExtention)
+
+	if InsertIntoCacheError != nil {
+		pterm.Fatal.WithFatal(true).Println(InsertIntoCacheError)
+		return false
+	}
+	return true
+}
+
 func CacheSize() int64 {
 	var CacheRecordCount int64
 
