@@ -72,7 +72,7 @@ func (a *App) ToggleFavorite(name string, location string, favorite bool) []back
 }
 
 func (a *App) CacheSystem() {
-	
+	fmt.Println("Hello World")
 }
 
 func (a *App) ClearCache() bool {
@@ -81,17 +81,6 @@ func (a *App) ClearCache() bool {
 	} else {
 		return false
 	}
-}
-
-func (a *App) ChangeTheme(theme string) {
-	if database.SetTheme(theme) == true {
-		currentPage = "Search"
-		runtime.WindowReload(a.ctx)
-	}
-}
-
-func (a *App) CurrentTheme() string {
-	return database.GetCurrentTheme()
 }
 
 func (a *App) GetCurrentPage() string {
@@ -103,7 +92,7 @@ func (a *App) SetPage(page string) {
 
 	runtime.WindowReloadApp(a.ctx)
 	runtime.WindowShow(a.ctx)
-	keystroke.CurrentWindowStateOpen = true
+	keystroke.OverWriteState(true)
 }
 
 func (a *App) CloseApp() {
