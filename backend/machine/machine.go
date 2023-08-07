@@ -46,7 +46,6 @@ func CacheSystem() bool {
 				fileName := info.Name()
 				fileExtension := filepath.Ext(fileName)
 				database.InsertIntoCache(path, fileName, fileExtension)
-
 			}
 
 			return nil
