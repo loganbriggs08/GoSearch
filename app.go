@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/NotKatsu/GoSearch/backend/json"
 	"strings"
 
 	"github.com/NotKatsu/GoSearch/backend/machine"
@@ -38,7 +39,7 @@ func (a *App) startup(ctx context.Context) {
 	if database.SetupDatabase() == true {
 		go keystroke.Listener(a.ctx)
 
-		if database.SystemCached() == true {
+		if json.SystemCached() == true {
 			a.SetPage("Search")
 		} else {
 			a.SetPage("Welcome")
@@ -74,6 +75,7 @@ func (a *App) ToggleFavorite(name string, location string, favorite bool) []back
 
 func (a *App) CacheSystem() {
 	if machine.CacheSystem() == true {
+		json.UpdateCachedSetting(true)
 		a.SetPage("Search")
 	}
 }
