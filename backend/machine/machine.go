@@ -1,10 +1,10 @@
 package machine
 
 import (
-	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 
 	"github.com/NotKatsu/GoSearch/database"
 
@@ -30,42 +30,64 @@ func OpenExecutable(executablePath string) bool {
 	return true
 }
 
-func getDiskRoots() []string {
-	var roots []string
-	if drives, err := filepath.Glob("/*"); err == nil {
-		for _, drive := range drives {
-			roots = append(roots, filepath.VolumeName(drive))
-		}
-	}
-	return roots
-}
-
-func addDataToDatabase(path string, info os.FileInfo, err error) error {
-	if err != nil {
-		if os.IsPermission(err) {
-			return nil
-		} else {
-			pterm.Fatal.WithFatal(true).Println(err)
-			return err
-		}
-	}
-	fmt.Println(path)
-	database.InsertIntoCache(path, filepath.Base(path), filepath.Ext(path))
-	return nil
-}
-
 func CacheSystem() bool {
-	roots := getDiskRoots()
-
-	for _, root := range roots {
-		filepathWalkError := filepath.Walk(root, addDataToDatabase)
-		if filepathWalkError != nil {
-			pterm.Fatal.WithFatal(true).Println(filepathWalkError)
-			return false
-		} else {
-			return true
-		}
+	directoriesToCache, err := getDirectoriesToCache()
+	if err != nil {
+		return false
 	}
 
+	for _, directory := range directoriesToCache {
+		err = filepath.Walk(directory, func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+
+			if !info.IsDir() {
+				fileName := info.Name()
+				fileExtension := filepath.Ext(fileName)
+				database.InsertIntoCache(path, fileName, fileExtension)
+
+			}
+
+			return nil
+		})
+
+		if err != nil {
+			return false
+		}
+	}
 	return true
+}
+
+func getDirectoriesToCache() ([]string, error) {
+	var directories []string
+
+	if runtime.GOOS == "windows" {
+		homeDrive := os.Getenv("HOMEDRIVE")
+		homePath := os.Getenv("HOMEPATH")
+		userProfile := os.Getenv("USERPROFILE")
+
+		desktop := filepath.Join(homeDrive+homePath, "Desktop")
+		documents := filepath.Join(userProfile, "Documents")
+		pictures := filepath.Join(userProfile, "Pictures")
+		downloads := filepath.Join(userProfile, "Downloads")
+		music := filepath.Join(userProfile, "Music")
+		videos := filepath.Join(userProfile, "Videos")
+
+		directories = append(directories, desktop, documents, pictures, downloads, music, videos)
+	} else {
+		homeDirectory, err := os.UserHomeDir()
+		if err != nil {
+			return nil, err
+		}
+
+		pictures := filepath.Join(homeDirectory, "Pictures")
+		downloads := filepath.Join(homeDirectory, "Downloads")
+		music := filepath.Join(homeDirectory, "Music")
+		videos := filepath.Join(homeDirectory, "Videos")
+
+		directories = append(directories, homeDirectory, pictures, downloads, music, videos)
+	}
+
+	return directories, nil
 }
