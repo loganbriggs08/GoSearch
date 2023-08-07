@@ -29,7 +29,7 @@ func GoSearch() *App {
 }
 
 var (
-	currentPage = "Welcome"
+	currentPage = "Search"
 )
 
 func (a *App) startup(ctx context.Context) {
@@ -73,8 +73,9 @@ func (a *App) ToggleFavorite(name string, location string, favorite bool) []back
 }
 
 func (a *App) CacheSystem() {
-	result := machine.CacheSystem()
-	fmt.Println(result)
+	if machine.CacheSystem() == true {
+		a.SetPage("Search")
+	}
 }
 
 func (a *App) ClearCache() bool {
