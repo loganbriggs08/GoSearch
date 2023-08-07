@@ -37,11 +37,10 @@ func SetupDatabase() bool {
 	}
 
 	_, databaseTableCreationError1 := default_database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_icon_location VARCHAR(255), app_favorited BOOLEAN, app_visits BIGINT)")
-	_, databaseTableCreationError2 := default_database.Exec("CREATE TABLE IF NOT EXISTS settings(system_cached boolean)")
-	_, databaseTableCreationError3 := cache_database.Exec("CREATE TABLE IF NOT EXISTS cache(file_location VARCHAR(255), file_name VARCHAR(255), file_extention)")
+	_, databaseTableCreationError2 := cache_database.Exec("CREATE TABLE IF NOT EXISTS cache(file_location VARCHAR(255), file_name VARCHAR(255), file_extention)")
 
-	if databaseTableCreationError1 != nil && databaseTableCreationError2 != nil && databaseTableCreationError3 != nil {
-		pterm.Fatal.WithFatal(true).Println(databaseTableCreationError1, databaseTableCreationError2, databaseTableCreationError3)
+	if databaseTableCreationError1 != nil && databaseTableCreationError2 != nil {
+		pterm.Fatal.WithFatal(true).Println(databaseTableCreationError1, databaseTableCreationError2)
 		return false
 	} else {
 		return true
@@ -56,37 +55,6 @@ func InsertIntoCache(fileLocation string, fileName string, fileExtention string)
 		return false
 	}
 	return true
-}
-
-func SystemCached() bool {
-	var systemCached bool
-
-	err := default_database.QueryRow("SELECT system_cached FROM settings LIMIT 1").Scan(&systemCached)
-
-	if err != nil {
-		if err == sql.ErrNoRows {
-			return false
-		}
-		pterm.Fatal.WithFatal(true).Println(err)
-	}
-	return systemCached
-}
-
-func UpdateCachedSetting(value bool) {
-	var systemCached bool
-
-	err := default_database.QueryRow("SELECT system_cached FROM settings LIMIT 1").Scan(&systemCached)
-
-	if err != nil {
-		if err == sql.ErrNoRows {
-			_, err := default_database.Exec("INSERT INTO settings(system_cached) VALUES(?)", value)
-
-			if err != nil {
-				pterm.Fatal.WithFatal(true).Println(err)
-			}
-		}
-		pterm.Fatal.WithFatal(true).Println(err)
-	}
 }
 
 func ClearDatabaseCache() bool {
