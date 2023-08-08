@@ -3,8 +3,9 @@ package main
 import (
 	"context"
 	"fmt"
-	"github.com/NotKatsu/GoSearch/backend/json"
 	"strings"
+
+	"github.com/NotKatsu/GoSearch/backend/json"
 
 	"github.com/NotKatsu/GoSearch/backend/machine"
 
@@ -82,6 +83,7 @@ func (a *App) CacheSystem() {
 
 func (a *App) ClearCache() bool {
 	if database.ClearDatabaseCache() == true {
+		json.UpdateCachedSetting(false)
 		return true
 	} else {
 		return false
