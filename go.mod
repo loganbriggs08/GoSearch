@@ -3,6 +3,7 @@ module github.com/NotKatsu/GoSearch
 go 1.18
 
 require (
+	github.com/fsnotify/fsnotify v1.4.9
 	github.com/mattn/go-sqlite3 v1.14.17
 	github.com/nsf/termbox-go v1.1.1
 	github.com/pterm/pterm v0.12.49
