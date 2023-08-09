@@ -2,6 +2,7 @@ package main
 
 import (
 	"embed"
+	"github.com/NotKatsu/GoSearch/listener"
 
 	"github.com/pterm/pterm"
 
@@ -15,6 +16,8 @@ import (
 var assets embed.FS
 
 func main() {
+	go listener.CreateWatcher()
+
 	GoSearchApp := GoSearch()
 
 	err := wails.Run(&options.App{
