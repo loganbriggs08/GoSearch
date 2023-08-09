@@ -1,7 +1,6 @@
 package search
 
 import (
-	"fmt"
 	"strings"
 )
 
@@ -10,7 +9,6 @@ var (
 )
 
 func ContainsQuestionKeyword(query string) bool {
-	fmt.Println("Checking query")
 	reformedQuery := strings.ToLower(query)
 
 	for _, keyword := range questionKeywords {
