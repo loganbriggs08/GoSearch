@@ -60,17 +60,13 @@ func CacheSystem() bool {
 func getDirectoriesToCache() ([]string, error) {
 	var directories []string
 
-	homeDrive := os.Getenv("HOMEDRIVE")
-	homePath := os.Getenv("HOMEPATH")
-	userProfile := os.Getenv("USERPROFILE")
-
 	directories = append(directories,
-		filepath.Join(homeDrive+homePath, "Desktop"),
-		filepath.Join(userProfile, "Documents"),
-		filepath.Join(userProfile, "Pictures"),
-		filepath.Join(userProfile, "Downloads"),
-		filepath.Join(userProfile, "Music"),
-		filepath.Join(userProfile, "Videos"))
+		filepath.Join(os.Getenv("HOMEDRIVE")+os.Getenv("HOMEPATH"), "Desktop"),
+		filepath.Join(os.Getenv("USERPROFILE"), "Documents"),
+		filepath.Join(os.Getenv("USERPROFILE"), "Pictures"),
+		filepath.Join(os.Getenv("USERPROFILE"), "Downloads"),
+		filepath.Join(os.Getenv("USERPROFILE"), "Music"),
+		filepath.Join(os.Getenv("USERPROFILE"), "Videos"))
 
 	return directories, nil
 }
