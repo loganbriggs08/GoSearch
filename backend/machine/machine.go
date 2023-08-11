@@ -1,6 +1,7 @@
 package machine
 
 import (
+	"fmt"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -61,6 +62,7 @@ func getDirectoriesToCache() ([]string, error) {
 	var directories []string
 
 	directories = append(directories,
+		os.Getenv("USERPROFILE")+"\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs",
 		filepath.Join(os.Getenv("HOMEDRIVE")+os.Getenv("HOMEPATH"), "Desktop"),
 		filepath.Join(os.Getenv("USERPROFILE"), "Documents"),
 		filepath.Join(os.Getenv("USERPROFILE"), "Pictures"),
