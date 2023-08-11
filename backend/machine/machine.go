@@ -4,7 +4,6 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
-	"runtime"
 
 	"github.com/NotKatsu/GoSearch/database"
 
@@ -61,32 +60,17 @@ func CacheSystem() bool {
 func getDirectoriesToCache() ([]string, error) {
 	var directories []string
 
-	if runtime.GOOS == "windows" {
-		homeDrive := os.Getenv("HOMEDRIVE")
-		homePath := os.Getenv("HOMEPATH")
-		userProfile := os.Getenv("USERPROFILE")
+	homeDrive := os.Getenv("HOMEDRIVE")
+	homePath := os.Getenv("HOMEPATH")
+	userProfile := os.Getenv("USERPROFILE")
 
-		desktop := filepath.Join(homeDrive+homePath, "Desktop")
-		documents := filepath.Join(userProfile, "Documents")
-		pictures := filepath.Join(userProfile, "Pictures")
-		downloads := filepath.Join(userProfile, "Downloads")
-		music := filepath.Join(userProfile, "Music")
-		videos := filepath.Join(userProfile, "Videos")
-
-		directories = append(directories, desktop, documents, pictures, downloads, music, videos)
-	} else {
-		homeDirectory, err := os.UserHomeDir()
-		if err != nil {
-			return nil, err
-		}
-
-		pictures := filepath.Join(homeDirectory, "Pictures")
-		downloads := filepath.Join(homeDirectory, "Downloads")
-		music := filepath.Join(homeDirectory, "Music")
-		videos := filepath.Join(homeDirectory, "Videos")
-
-		directories = append(directories, homeDirectory, pictures, downloads, music, videos)
-	}
+	directories = append(directories,
+		filepath.Join(homeDrive+homePath, "Desktop"),
+		filepath.Join(userProfile, "Documents"),
+		filepath.Join(userProfile, "Pictures"),
+		filepath.Join(userProfile, "Downloads"),
+		filepath.Join(userProfile, "Music"),
+		filepath.Join(userProfile, "Videos"))
 
 	return directories, nil
 }
