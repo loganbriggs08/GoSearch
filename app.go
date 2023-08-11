@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"strings"
 
 	"github.com/NotKatsu/GoSearch/backend/json"
@@ -114,13 +113,12 @@ func (a *App) Search(query string) []backend.FileReturnStruct {
 
 	if query == "" {
 		return search.GetRecommended()
-	} else if query != "" {
+
+	} else if strings.HasPrefix(strings.ToLower(query), "/") {
 		if strings.ToLower(query) == "/settings" {
 			currentPage = "Settings"
 			runtime.WindowReload(a.ctx)
 		}
-		fmt.Println(query)
-		//		return search.Files(strings.ToLower(query))
 	}
 
 	return arrayWithEmptyStruct
