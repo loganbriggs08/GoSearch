@@ -17,6 +17,5 @@ func ContainsQuestionKeyword(query string) bool {
 			return true
 		}
 	}
-
 	return false
 }
