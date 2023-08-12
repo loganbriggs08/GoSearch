@@ -5,6 +5,7 @@ type FileReturnStruct struct {
 	Location     string
 	IconLocation string
 	Link         string
+	Keyword      string
 	Favorite     bool
 	Visits       uint16
 }
