@@ -152,9 +152,23 @@ func UpdateFavorite(name string, location string, favorite bool) {
 		favoriteNumberBool = 1
 	}
 
-	_, databaseUpdateError := default_database.Exec("UPDATE recommended_apps SET app_favorited = ? WHERE app_name = ? AND app_location = ?", favoriteNumberBool, name, location)
+	rows, selectFavoriteError := default_database.Query("SELECT * FROM recommended_apps WHERE app_name = ? AND app_location = ?", name, location)
 
-	if databaseUpdateError != nil {
-		pterm.Fatal.WithFatal(true).Println(databaseUpdateError)
+	if selectFavoriteError != nil {
+		pterm.Fatal.WithFatal(true).Println(selectFavoriteError)
+	}
+
+	if rows.Next() == false {
+		_, databaseInsertFavoriteError := default_database.Exec("INSERT INTO recommended_apps (app_name, app_location, app_favorited, app_visits) VALUES (?, ?, ?, ?)", name, location, 1, 0)
+
+		if databaseInsertFavoriteError != nil {
+			pterm.Fatal.WithFatal(true).Println(databaseInsertFavoriteError)
+		}
+	} else {
+		_, databaseUpdateError := default_database.Exec("UPDATE recommended_apps SET app_favorited = ? WHERE app_name = ? AND app_location = ?", favoriteNumberBool, name, location)
+
+		if databaseUpdateError != nil {
+			pterm.Fatal.WithFatal(true).Println(databaseUpdateError)
+		}
 	}
 }
