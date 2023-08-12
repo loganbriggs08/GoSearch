@@ -2,8 +2,8 @@ package database
 
 import (
 	"database/sql"
-
 	"github.com/NotKatsu/GoSearch/backend/appdata"
+	"strings"
 
 	"github.com/NotKatsu/GoSearch/backend"
 
@@ -37,7 +37,7 @@ func SetupDatabase() bool {
 	}
 
 	_, databaseTableCreationError1 := default_database.Exec("CREATE TABLE IF NOT EXISTS recommended_apps(app_name VARCHAR(50), app_location VARCHAR(255), app_icon_location VARCHAR(255), app_favorited BOOLEAN, app_visits BIGINT)")
-	_, databaseTableCreationError2 := cache_database.Exec("CREATE TABLE IF NOT EXISTS cache(file_location VARCHAR(255), file_name VARCHAR(255), file_extention)")
+	_, databaseTableCreationError2 := cache_database.Exec("CREATE TABLE IF NOT EXISTS cache(file_location VARCHAR(255), file_name VARCHAR(255), file_extention VARCHAR(50), keyword VARCHAR(255))")
 
 	if databaseTableCreationError1 != nil && databaseTableCreationError2 != nil {
 		pterm.Fatal.WithFatal(true).Println(databaseTableCreationError1, databaseTableCreationError2)
@@ -47,8 +47,8 @@ func SetupDatabase() bool {
 	}
 }
 
-func InsertIntoCache(fileLocation string, fileName string, fileExtention string) bool {
-	_, InsertIntoCacheError := cache_database.Exec("INSERT INTO cache(file_location, file_name, file_extention) VALUES (?, ?, ?)", fileLocation, fileName, fileExtention)
+func InsertIntoCache(fileLocation string, fileName string, fileExtention string, keyword string) bool {
+	_, InsertIntoCacheError := cache_database.Exec("INSERT INTO cache(file_location, file_name, file_extention, keyword) VALUES (?, ?, ?, ?)", fileLocation, fileName, fileExtention, keyword)
 
 	if InsertIntoCacheError != nil {
 		pterm.Fatal.WithFatal(true).Println(InsertIntoCacheError)
@@ -59,21 +59,46 @@ func InsertIntoCache(fileLocation string, fileName string, fileExtention string)
 
 func RetrieveCachedResultsByQuery(query string) []backend.FileReturnStruct {
 	var CachedResults []backend.FileReturnStruct
-	rows, CachedResultsDataBaseError := cache_database.Query(`SELECT file_location, file_name, file_extension FROM cache WHERE file_name = ? ORDER BY CASE WHEN file_extension = '.lnk' OR file_extension = '.exe' THEN 1 ELSE 2 END, file_name`, query)
 
-	if CachedResultsDataBaseError != nil {
-		pterm.Fatal.WithFatal(true).Println(CachedResultsDataBaseError)
-		return CachedResults
-	}
-	defer rows.Close()
+	if strings.Contains(query, ".") == true {
+		rows, CachedResultsDataBaseError := cache_database.Query("SELECT file_location, file_name, file_extention, keyword FROM cache WHERE file_name LIKE ? LIMIT 15", query)
 
-	for rows.Next() {
-		var currentCachedResult backend.FileReturnStruct
+		if CachedResultsDataBaseError != nil {
+			pterm.Fatal.WithFatal(true).Println(CachedResultsDataBaseError)
+			return CachedResults
+		}
+		defer rows.Close()
 
-		rowsScanError := rows.Scan(&currentCachedResult.Location, &currentCachedResult.Name, &currentCachedResult.Link)
+		for rows.Next() {
+			var currentCachedResult backend.FileReturnStruct
 
-		if rowsScanError != nil {
-			pterm.Fatal.WithFatal(true).Println(rowsScanError)
+			rowsScanError := rows.Scan(&currentCachedResult.Location, &currentCachedResult.Name, &currentCachedResult.Link, &currentCachedResult.Keyword)
+
+			CachedResults = append(CachedResults, currentCachedResult)
+
+			if rowsScanError != nil {
+				pterm.Fatal.WithFatal(true).Println(rowsScanError)
+			}
+		}
+	} else {
+		rows, CachedResultsDataBaseError := cache_database.Query("SELECT file_location, file_name, file_extention, keyword FROM cache WHERE keyword LIKE ? LIMIT 15", query)
+
+		if CachedResultsDataBaseError != nil {
+			pterm.Fatal.WithFatal(true).Println(CachedResultsDataBaseError)
+			return CachedResults
+		}
+		defer rows.Close()
+
+		for rows.Next() {
+			var currentCachedResult backend.FileReturnStruct
+
+			rowsScanError := rows.Scan(&currentCachedResult.Location, &currentCachedResult.Name, &currentCachedResult.Link, &currentCachedResult.Keyword)
+
+			CachedResults = append(CachedResults, currentCachedResult)
+
+			if rowsScanError != nil {
+				pterm.Fatal.WithFatal(true).Println(rowsScanError)
+			}
 		}
 	}
 
