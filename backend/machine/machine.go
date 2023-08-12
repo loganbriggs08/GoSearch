@@ -4,6 +4,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 
 	"github.com/NotKatsu/GoSearch/database"
 
@@ -44,7 +45,9 @@ func CacheSystem() bool {
 			if !info.IsDir() {
 				fileName := info.Name()
 				fileExtension := filepath.Ext(fileName)
-				database.InsertIntoCache(path, fileName, fileExtension)
+				fileNameNoExtension := strings.TrimSuffix(fileName, fileExtension)
+
+				database.InsertIntoCache(path, fileName, fileExtension, fileNameNoExtension)
 			}
 
 			return nil
