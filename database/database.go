@@ -59,7 +59,7 @@ func InsertIntoCache(fileLocation string, fileName string, fileExtention string)
 
 func RetrieveCachedResultsByQuery(query string) []backend.FileReturnStruct {
 	var CachedResults []backend.FileReturnStruct
-	rows, CachedResultsDataBaseError := cache_database.Query(`SELECT file_location, file_name, file_extension FROM cache WHERE file_name = ? ORDER BY CASE WHEN file_extension = '.lnk' OR file_extension = '.exe' THEN 1 ELSE 2 END, file_name`)
+	rows, CachedResultsDataBaseError := cache_database.Query(`SELECT file_location, file_name, file_extension FROM cache WHERE file_name = ? ORDER BY CASE WHEN file_extension = '.lnk' OR file_extension = '.exe' THEN 1 ELSE 2 END, file_name`, query)
 
 	if CachedResultsDataBaseError != nil {
 		pterm.Fatal.WithFatal(true).Println(CachedResultsDataBaseError)
