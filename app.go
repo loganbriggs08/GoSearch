@@ -120,7 +120,7 @@ func (a *App) Search(query string) []backend.FileReturnStruct {
 			runtime.WindowReload(a.ctx)
 		}
 	} else {
-		return database.RetrieveCachedResultsByQuery(strings.ToLower(query))
+		return database.RetrieveCachedResultsByQuery(query)
 	}
 
 	return arrayWithEmptyStruct
