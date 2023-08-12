@@ -59,11 +59,25 @@ func InsertIntoCache(fileLocation string, fileName string, fileExtention string)
 
 func RetrieveCachedResultsByQuery(query string) []backend.FileReturnStruct {
 	var CachedResults []backend.FileReturnStruct
-	rows, CachedResultsDataBaseError := cache_database.Query("SELECT file_location, file_name, file_extention FROM cache ")
+	rows, CachedResultsDataBaseError := cache_database.Query(`SELECT file_location, file_name, file_extension FROM cache WHERE file_name = ? ORDER BY CASE WHEN file_extension = '.lnk' OR file_extension = '.exe' THEN 1 ELSE 2 END, file_name`)
 
 	if CachedResultsDataBaseError != nil {
 		pterm.Fatal.WithFatal(true).Println(CachedResultsDataBaseError)
+		return CachedResults
 	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var currentCachedResult backend.FileReturnStruct
+
+		rowsScanError := rows.Scan(&currentCachedResult.Location, &currentCachedResult.Name, &currentCachedResult.Link)
+
+		if rowsScanError != nil {
+			pterm.Fatal.WithFatal(true).Println(rowsScanError)
+		}
+	}
+
+	return CachedResults
 }
 
 func ClearDatabaseCache() bool {
