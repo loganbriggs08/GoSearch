@@ -117,6 +117,10 @@ func ClearDatabaseCache() bool {
 	}
 }
 
+func isFavouriteApp() bool {
+
+}
+
 func GetRecommendedApps() ([]backend.FileReturnStruct, error) {
 	var RecommendedAppStructArray []backend.FileReturnStruct
 	rows, recommendedAppsDatabaseQueryError := default_database.Query("SELECT app_name, app_location, app_visits, app_favorited FROM recommended_apps ORDER BY CASE WHEN app_favorited = 1 THEN 0 ELSE 1 END, app_visits DESC LIMIT 15")
