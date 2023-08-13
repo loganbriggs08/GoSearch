@@ -148,27 +148,39 @@ func UpdateFavorite(name string, location string, favorite bool) {
 
 	if favorite == true {
 		favoriteNumberBool = 0
-	} else {
+	} else if favorite == false {
 		favoriteNumberBool = 1
 	}
 
-	rows, selectFavoriteError := default_database.Query("SELECT * FROM recommended_apps WHERE app_name = ? AND app_location = ?", name, location)
+	tx, err := default_database.Begin()
 
-	if selectFavoriteError != nil {
+	if err != nil {
+		pterm.Fatal.WithFatal(true).Println(err)
+	}
+	defer tx.Rollback()
+
+	row := tx.QueryRow("SELECT app_favorited FROM recommended_apps WHERE app_name = ? AND app_location = ?", name, location)
+
+	var existingFavorite bool
+
+	selectFavoriteError := row.Scan(&existingFavorite)
+	if selectFavoriteError != nil && selectFavoriteError != sql.ErrNoRows {
 		pterm.Fatal.WithFatal(true).Println(selectFavoriteError)
 	}
 
-	if rows.Next() == false {
-		_, databaseInsertFavoriteError := default_database.Exec("INSERT INTO recommended_apps (app_name, app_location, app_favorited, app_visits) VALUES (?, ?, ?, ?)", name, location, 1, 0)
-
+	if selectFavoriteError == sql.ErrNoRows {
+		_, databaseInsertFavoriteError := tx.Exec("INSERT INTO recommended_apps (app_name, app_location, app_favorited, app_visits) VALUES (?, ?, ?, ?)", name, location, 1, 0)
 		if databaseInsertFavoriteError != nil {
 			pterm.Fatal.WithFatal(true).Println(databaseInsertFavoriteError)
 		}
 	} else {
-		_, databaseUpdateError := default_database.Exec("UPDATE recommended_apps SET app_favorited = ? WHERE app_name = ? AND app_location = ?", favoriteNumberBool, name, location)
-
+		_, databaseUpdateError := tx.Exec("UPDATE recommended_apps SET app_favorited = ? WHERE app_name = ? AND app_location = ?", favoriteNumberBool, name, location)
 		if databaseUpdateError != nil {
 			pterm.Fatal.WithFatal(true).Println(databaseUpdateError)
 		}
+	}
+
+	if err := tx.Commit(); err != nil {
+		pterm.Fatal.WithFatal(true).Println(err)
 	}
 }
