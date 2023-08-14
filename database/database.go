@@ -2,7 +2,6 @@ package database
 
 import (
 	"database/sql"
-	"fmt"
 	"github.com/NotKatsu/GoSearch/backend/appdata"
 	"strings"
 
@@ -95,7 +94,11 @@ func RetrieveCachedResultsByQuery(query string) []backend.FileReturnStruct {
 
 			rowsScanError := rows.Scan(&currentCachedResult.Location, &currentCachedResult.Name, &currentCachedResult.Link, &currentCachedResult.Keyword)
 
-			fmt.Println("Is Favourite: ", isFavouriteApp(currentCachedResult.Name, currentCachedResult.Location))
+			if isFavouriteApp(currentCachedResult.Name, currentCachedResult.Location) == true {
+				currentCachedResult.Favorite = true
+			} else {
+				currentCachedResult.Favorite = false
+			}
 
 			CachedResults = append(CachedResults, currentCachedResult)
 
