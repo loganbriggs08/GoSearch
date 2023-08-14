@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	"github.com/NotKatsu/GoSearch/backend/appdata"
 	"strings"
 
@@ -94,6 +95,8 @@ func RetrieveCachedResultsByQuery(query string) []backend.FileReturnStruct {
 
 			rowsScanError := rows.Scan(&currentCachedResult.Location, &currentCachedResult.Name, &currentCachedResult.Link, &currentCachedResult.Keyword)
 
+			fmt.Println("Is Favourite: ", isFavouriteApp(currentCachedResult.Name, currentCachedResult.Location))
+
 			CachedResults = append(CachedResults, currentCachedResult)
 
 			if rowsScanError != nil {
@@ -117,8 +120,29 @@ func ClearDatabaseCache() bool {
 	}
 }
 
-func isFavouriteApp() bool {
+func isFavouriteApp(appName string, appLocation string) bool {
+	var isFavorited bool
 
+	rows, isFavouriteAppQueryError := default_database.Query("SELECT app_favorited from recommended_apps WHERE app_name = ? AND app_location = ? LIMIT 1", appName, appLocation)
+
+	if isFavouriteAppQueryError != nil {
+		if isFavouriteAppQueryError == sql.ErrNoRows {
+			return false
+		} else {
+			pterm.Fatal.WithFatal(true).Println(isFavouriteAppQueryError)
+		}
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		rowScanError := rows.Scan(&isFavorited)
+
+		if rowScanError != nil {
+			pterm.Fatal.WithFatal(true).Println(rowScanError)
+		}
+	}
+
+	return isFavorited
 }
 
 func GetRecommendedApps() ([]backend.FileReturnStruct, error) {
