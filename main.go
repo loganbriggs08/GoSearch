@@ -15,13 +15,17 @@ import (
 //go:embed frontend/dist
 var assets embed.FS
 
+const (
+	version = "0.0.1"
+)
+
 func main() {
 	go listener.CreateWatcher()
 
 	GoSearchApp := GoSearch()
 
 	err := wails.Run(&options.App{
-		Title:         "GoSearch",
+		Title:         "GoSearch - V" + version,
 		Width:         650,
 		Height:        350,
 		Frameless:     true,
