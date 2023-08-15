@@ -104,6 +104,10 @@
     cursor: pointer;
 }
 
+#resultcard .main-button p {
+    color: #ffffff;
+}
+
 #resultcard .heart-button {
     flex: 1;
     display: flex;
