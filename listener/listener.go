@@ -1,12 +1,12 @@
 package listener
 
 import (
+	"fmt"
+	"github.com/fsnotify/fsnotify"
+	"github.com/pterm/pterm"
 	"os"
 	"path/filepath"
 	"runtime"
-
-	"github.com/fsnotify/fsnotify"
-	"github.com/pterm/pterm"
 )
 
 func getRootPath() (string, error) {
@@ -14,41 +14,49 @@ func getRootPath() (string, error) {
 		homeDrive := os.Getenv("HOMEDRIVE")
 		homePath := os.Getenv("HOMEPATH")
 
-		desktop := filepath.Join(homeDrive+homePath, "Desktop")
-
-		return desktop, nil
+		return homeDrive + homePath, nil
 	} else {
 		return "/", nil
 	}
 }
 
 func CreateWatcher() {
-	var err error
+	pterm.Info.WithShowLineNumber(true).Println("Watcher is currently being created...")
 
-	watcher, newWatcherError := fsnotify.NewWatcher()
-	if newWatcherError != nil {
-		pterm.Fatal.WithFatal(true).Println(newWatcherError)
+	watcher, err := fsnotify.NewWatcher()
+	if err != nil {
+		pterm.Fatal.WithFatal(true).Println(err)
 	}
 	defer watcher.Close()
 
-	rootPath, getRootPathError := getRootPath()
+	pterm.Success.Println("Watcher has been successfully created.")
+
+	userRootPath, getRootPathError := getRootPath()
+
 	if getRootPathError != nil {
 		pterm.Fatal.WithFatal(true).Println(getRootPathError)
 	}
 
-	err = filepath.Walk(rootPath, func(path string, info os.FileInfo, err error) error {
+	filePathWalkError := filepath.Walk(userRootPath, func(path string, info os.FileInfo, err error) error {
 		if err != nil {
 			return err
 		}
+
 		if info.IsDir() {
-			return watcher.Add(path)
+			watcherAddError := watcher.Add(path)
+
+			if watcherAddError != nil {
+				return watcherAddError
+			}
+
+			fmt.Println(path)
+
 		}
 		return nil
 	})
 
-	if err != nil {
-		pterm.Fatal.WithFatal(true).Println(err)
-		return
+	if filePathWalkError != nil {
+		pterm.Fatal.WithFatal(true).Println(filePathWalkError)
 	}
 
 	done := make(chan bool)
@@ -60,7 +68,14 @@ func CreateWatcher() {
 func handleFileChange(watcher *fsnotify.Watcher, done chan bool) {
 	for {
 		select {
-		case event := <-watcher.Events:
+		case event, ok := <-watcher.Events:
+			if !ok {
+				done <- true
+				return
+			}
+
+			fmt.Println(getRootPath())
+
 			switch {
 			case event.Op&fsnotify.Create == fsnotify.Create:
 				pterm.Println("File created:", event.Name)
@@ -70,9 +85,7 @@ func handleFileChange(watcher *fsnotify.Watcher, done chan bool) {
 				pterm.Println("File deleted:", event.Name)
 			}
 		case err := <-watcher.Errors:
-			// Handle errors
-			pterm.Println("Error:", err.Error())
+			pterm.Fatal.WithFatal(true).Println(err)
 		}
 	}
-	done <- true
 }
