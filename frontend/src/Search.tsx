@@ -31,7 +31,7 @@ function SearchComponent() {
                     setResults(response);
                 }
             });
-            }, 1000);
+            }, 500);
     }
 
     const handleToggleFavorite = (application: FileReturnStruct) => {
