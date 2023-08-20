@@ -52,7 +52,7 @@ function SearchComponent() {
     return (
         <div id="App" onContextMenu={(e) => { e.preventDefault() }}>
             <div id="input" className="search-box">
-                <input id="search-bar" className="search-input" onChange={(e) => fetchSearchResults(e.target.value)} name="input" type="text" spellCheck="false" placeholder="Search..." />
+                <input id="search-bar" className="search-input" onChange={(e) => fetchSearchResults(e.target.value)} name="input" type="text" spellCheck="true" placeholder="Search..." />
             </div>
 
             <div id="results" className="results-div">
