@@ -63,7 +63,7 @@ func (a *App) HandleButtonClickEvent(application any) {
 		}
 
 	} else {
-		pterm.Fatal.WithFatal(true).Println("Something went wrong while trying to complete a Assertion.")
+		pterm.Fatal.WithFatal(true).Println("Something went wrong while trying to complete a assertion.")
 	}
 }
 
